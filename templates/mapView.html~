@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
+<link rel="stylesheet" href="mapView.css">
 <body>
 	<!-- The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">
