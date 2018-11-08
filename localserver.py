@@ -3,7 +3,7 @@ import pyrebase
 app = Flask(__name__)
 
 import pyrebase
-print("tet")
+
 config = {
   "apiKey": "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
   "authDomain": "cmsc447-af201.firebaseapp.com",
@@ -11,9 +11,9 @@ config = {
   "storageBucket": "cmsc447-af201.appspot.com",
   "serviceAccount": "cmsc447-af201-22ab2aceacc0.json"
 }
-print("tet2")
+
 firebase = pyrebase.initialize_app(config)
-print("tet3")
+
 try:
     print(firebase.auth().sign_in_with_email_and_password("A","B"))
 except:
@@ -25,7 +25,7 @@ except:
 @app.route('/')
 def my_form():
     print("A")
-    return render_template('si.html')
+    return render_template('mockupSign-In.html')
 
 @app.route('/', methods=['POST'])
 def my_form_post():
@@ -37,6 +37,7 @@ def my_form_post():
     
     #signing in
     print("pre")
+    print(len(read))
     if len(read) == 2:
         print("A")
         username = read['username']
@@ -49,23 +50,15 @@ def my_form_post():
             user=auth.sign_in_with_email_and_password(username, password)
         except:
             login = "you suck and i hate you"
-        print(":A")
-#        print(user)
-        print(":B")
-#        print(user['error'])
-        print(":C")
-#        print(user['idToken'])
         db = firebase.database()
-#        login = "Good!"
-
-        return render_template('si.html', value=login)
+        return render_template('mockupSign-In.html', value=login)
     #new account
     if (len(read) == 4):
         username = read['username']
         passwordd = read['password']
         phoneNum = read['phoneNum']
         id = read['id']
-        return render_template('si.html', value=Success)
+        return render_template('mockupSign-In.html', value="success")
 #    return processed_text
 if __name__ == '__main__':
     app.run(use_reloader=True, debug=True)
