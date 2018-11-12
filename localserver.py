@@ -25,7 +25,7 @@ firebase = pyrebase.initialize_app(config)
 @app.route('/')
 def my_form():
     print("A")
-    return render_template('operationsDashboard.html')
+    return render_template('mockupSign-In.html')
 
 @app.route('/', methods=['POST'])
 def my_form_post():
