@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
+<body>
+	<!-- The sidebar, contains the Mission viewer and individual Missions -->
+	<div class="sidebar">
+	<div class="missionViewer">
+		<h3>Mission Viewer</h3>
+		<a href="#" class="MissionDisplayItem">Mission 1</a><br>
+		<a href="#" class="MissionDisplayItem">Mission 2</a><br>
+		<a href="#" class="MissionDisplayItem">Mission 3</a>
+	</div>
+	<div class="MissionCreator">
+		<h3>Create New Mission</h3>
+		<label for="MissionName">Mission Name:<br></label>
+		<input type="text" name="MissionName" id="MissionName"> <br>
+		<p id="frLabel" class="drodDownLabel">First Responders:</p>
+		<select name="firstResponders" id="frDropdown">
+				<option value="frTest">Test Responder</option>
+		</select><br>
+		<p id="eventLabel" class="drodDownLabel">Events:</p>
+		<select name="events" id="eventDropdown">
+				<option value="eventTest">Test Event</option>
+		</select><br>
+		<input type = "submit">
+	</div>
+<body>
+</html>
