@@ -25,7 +25,7 @@ firebase = pyrebase.initialize_app(config)
 @app.route('/')
 def my_form():
     print("A")
-    return render_template('mockupSign-In.html')
+    return render_template('operationsDashboard.html')
 
 @app.route('/', methods=['POST'])
 def my_form_post():
@@ -51,7 +51,7 @@ def my_form_post():
         except:
             login = "login failed"
         db = firebase.database()
-        return render_template('mapView.html', value=login)
+        return render_template('operationsDashboard.html', value=login)
     #new account
     else:
         print(read)
