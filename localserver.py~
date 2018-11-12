@@ -14,10 +14,10 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 
-try:
-    print(firebase.auth().sign_in_with_email_and_password("A","B"))
-except:
-    print("a")
+#try:
+#    print(firebase.auth().sign_in_with_email_and_password("A","B"))
+#except:
+#    print("a")
 #print(
 
 
@@ -38,11 +38,12 @@ def my_form_post():
     #signing in
     print("pre")
     print(len(read))
+    auth = firebase.auth()
     if len(read) == 2:
         print("A")
         username = read['username']
         password = read['password']
-        auth = firebase.auth()
+
         login = "successful login"
         user = None
         try:
@@ -50,7 +51,7 @@ def my_form_post():
         except:
             login = "login failed"
         db = firebase.database()
-        return render_template('mapView.html', value=login)
+        return render_template('operationsDashboard.html', value=login)
     #new account
     else:
         print(read)
@@ -59,7 +60,14 @@ def my_form_post():
         phoneNum = read['phoneNum']
         id = read['id']
         department = read['department']
-        auth.create_user_with_email_and_password(username, password)
+        try:
+            auth.create_user_with_email_and_password(username, password)
+            user = auth.sign_in_with_email_and_password(username, password)
+            db = firebase.database()
+            db.child("users").push({"user":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
+        except:
+            
+            return render_template('mockupSign-In.html', value="failed account creation")
         return render_template('mockupSign-In.html', value="success")
 #    return processed_text
 if __name__ == '__main__':
