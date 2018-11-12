@@ -22,3 +22,12 @@ a{
 	margin:5px;
 	border:1px solid black;
 }
+
+.dropdownLabel{
+	margin:0;
+	padding:0;
+}
+
+label{
+	font-family:"Arial";
+}
