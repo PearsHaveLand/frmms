@@ -38,12 +38,13 @@ def my_form_post():
     #signing in
     print("pre")
     print(len(read))
+    print(read)
     auth = firebase.auth()
     if len(read) == 2:
         print("A")
-        username = read['username']
+        username = read['email']
         password = read['password']
-
+        print("B")
         login = "successful login"
         user = None
         try:
@@ -55,7 +56,7 @@ def my_form_post():
     #new account
     else:
         print(read)
-        username = read['username']
+        username = read['email']
         password = read['password']
         phoneNum = read['phoneNum']
         id = read['id']
@@ -64,7 +65,7 @@ def my_form_post():
             auth.create_user_with_email_and_password(username, password)
             user = auth.sign_in_with_email_and_password(username, password)
             db = firebase.database()
-            db.child("users").push({"user":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
+            db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
         except:
             
             return render_template('mockupSign-In.html', value="failed account creation")

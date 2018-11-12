@@ -40,7 +40,9 @@ def my_form_post():
     print(len(read))
     print(read)
     auth = firebase.auth()
-    if len(read) == 2:
+    if read['TYPE'] == 'CNEO':
+        print("A")
+    elif read['TYPE'] == 'SIEU':
         print("A")
         username = read['email']
         password = read['password']
@@ -54,7 +56,7 @@ def my_form_post():
         db = firebase.database()
         return render_template('operationsDashboard.html', value=login)
     #new account
-    else:
+    elif read['TYPE'] == 'CU':
         print(read)
         username = read['email']
         password = read['password']
