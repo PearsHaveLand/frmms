@@ -6,6 +6,16 @@ a{
 	font-family:"Arial";
 }
 
+.header {
+    position:relative;
+	height:50px;
+    background:#FFCC00;
+    border:1px solid #FFBB00;
+    width:100%;
+    margin:0px auto;
+	text-align:center;
+}
+
 .sidebar{
 	width:25%;
 	height:100%;
@@ -26,6 +36,13 @@ a{
 .dropdownLabel{
 	margin:0;
 	padding:0;
+}
+
+.logout{
+	position:absolute;
+	right:10px;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 label{

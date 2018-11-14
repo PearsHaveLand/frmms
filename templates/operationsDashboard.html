@@ -2,33 +2,49 @@
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
 <body>
+	<div class="header">
+		<h3>Operator Dashboard</h3>
+		<form align="right" name="logoutLabel" method="post" action="log_out.php">
+		<label class="logout">
+			<input name="logout" type="submit" id="logout" value="Log out">
+		</label>
+		</form>
+	</div>
 	<!-- The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">
-	<div class="eventViewer">
+	
+	<!-- This is where individual events will be stored -->
+	<div class="eventViewer" id="eventViewer">
 		<h3>Event Viewer</h3>
 		<a href="#" class="eventDisplayItem">Event 1</a><br>
 		<a href="#" class="eventDisplayItem">Event 2</a><br>
 		<a href="#" class="eventDisplayItem">Event 3</a>
 	</div>
+	
 	<div class="eventCreator">
-	  <form method = "post">
+	<!-- Form for creation of events -->
+	<form method = "post">
 		<h3>Create New Event</h3>
 		<label for="EventName">Event Name:<br></label>
+		<!-- Contains event name -->
 		<input type="text" name="EventName" id="eventName"> <br>
 		<input type = "text" value = "CNEO" name = "TYPE">
 		<label for="location">Location:<br></label>
+		<!-- Contains event location -->
 		<input type="text" placeholder="Location" name="location" id="location"> <br>
+		<!-- Contains event urgency -->
 		<select name="urgency">
 		  <option value="high">High</option>
 		  <option value="medium">Medium</option>
 		  <option value="low">Low</option>
 		</select>
 <br>
-		<label for="location">Notes:</label>
+		<!-- Contains event notes -->
+		<label for="notes">Notes:</label>
 		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
 		
 		<input type = "submit">
-	  </form>
+	</form>
 	</div>
 <body>
 </html>
