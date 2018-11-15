@@ -2,35 +2,39 @@ h3{
 	font-family:"Arial";
 }
 
-a{
-	font-family:"Arial";
-}
-
 .header {
     position:relative;
 	height:50px;
     background:#FFCC00;
-    border:1px solid #FFBB00;
-    width:100%;
-    margin:0px auto;
+    border:2px solid #FFBB00;
+    margin:0px;
 	text-align:center;
+}
+
+#pageHeader{
+    width:100%;
 }
 
 .sidebar{
 	width:25%;
 	height:100%;
-	border:1px solid black;	
 	position:absolute;
+	background:#EEEEEE;
+	border:1px solid black;
+	padding:0px;
 }
 
 .eventViewer{
 	position:sticky;
+	height:50%;
+	margin:0px;
 }
 
 .eventDisplayItem{
-	display:inline;
-	margin:5px;
+	margin:0px;
 	border:1px solid black;
+	font-family:Arial;
+	padding-left:10px;
 }
 
 .dropdownLabel{
@@ -38,11 +42,21 @@ a{
 	padding:0;
 }
 
+
 .logout{
 	position:absolute;
 	right:10px;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.topRightBtn{
+	position:absolute;
+	right:10px;
+	/*
+	top: 50%;
+	transform: translateY(-50%);	
+	*/
 }
 
 label{

@@ -2,9 +2,10 @@
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
 <body>
-	<div class="header">
+	<div class="header" id="pageHeader">
 		<h3>Operator Dashboard</h3>
-		<form align="right" name="logoutLabel" method="post" action="log_out.php">
+		<!-- The Log out button -->
+		<form align="right" name="logoutLabel" method="post">
 		<label class="logout">
 			<input name="logout" type="submit" id="logout" value="Log out">
 		</label>
@@ -15,20 +16,30 @@
 	
 	<!-- This is where individual events will be stored -->
 	<div class="eventViewer" id="eventViewer">
-		<h3>Event Viewer</h3>
-		<a href="#" class="eventDisplayItem">Event 1</a><br>
-		<a href="#" class="eventDisplayItem">Event 2</a><br>
-		<a href="#" class="eventDisplayItem">Event 3</a>
+		<div class="header">
+			<h3>Event Viewer</h3>
+		</div>
+		<div class="eventDisplayItem" id="exampleEvent">
+			<p>Example Event
+				<form align="right" name="editLabel" method="post">
+					<label class="topRightBtn">
+						<input name="editEvent" type="submit" id="editEvent" value="Edit">
+					</label>
+				</form>
+			</p>
+			<p>Location: Example location</p>
+		</div>
 	</div>
-	
 	<div class="eventCreator">
 	<!-- Form for creation of events -->
-	<form method = "post">
+	<div class="header">
 		<h3>Create New Event</h3>
+	</div>
+	<form method = "post">
 		<label for="EventName">Event Name:<br></label>
 		<!-- Contains event name -->
 		<input type="text" name="EventName" id="eventName"> <br>
-		<input type = "text" value = "CNEO" name = "TYPE">
+		<input type = "text" value = "CNEO" name = "TYPE"> <br>
 		<label for="location">Location:<br></label>
 		<!-- Contains event location -->
 		<input type="text" placeholder="Location" name="location" id="location"> <br>
