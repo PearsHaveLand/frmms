@@ -7,9 +7,9 @@ import pyrebase
 config = {
   "apiKey": "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
   "authDomain": "cmsc447-af201.firebaseapp.com",
-  "databaseURL": "https://cmsc447-af201.firebaseio.com/", #check                
+  "databaseURL": "https://cmsc447-af201.firebaseio.com/", #check               
   "storageBucket": "cmsc447-af201.appspot.com",
-  "serviceAccount": "cmsc447-af201-22ab2aceacc0.json"
+  "serviceAccount": "cmsc447-af201-firebase-adminsdk-xagmx-880c1964b7.json"
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -30,6 +30,19 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
     print("test")
+
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    auth = firebase.auth()
+    user = auth.sign_in_with_email_and_password("jberns1@umbc.edu", "testtest")
+
+    print("INIT")
+
+
+    data = {"name": "Mortimer 'Morty' Smith"}
+    db.child("users").child("Morty").set(data,user['idToken'])
+    print("BINIT")
+    #db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
     read = request.form
 
     print(len(read))
@@ -39,7 +52,7 @@ def my_form_post():
     print("pre")
     print(len(read))
     print(read)
-    auth = firebase.auth()
+    #auth = firebase.auth()
     if read['TYPE'] == 'CNEO':
         print("A")
     elif read['TYPE'] == 'SIEU':
@@ -50,11 +63,32 @@ def my_form_post():
         login = "successful login"
         user = None
         try:
-            user=auth.sign_in_with_email_and_password(username, password)
+            print("0")
+            user = auth.sign_in_with_email_and_password(username, password)
+            print("aa")
+            user=auth.sign_in_with_email_and_password("jberns1@umbc.edu","testtest")
+            print("bb")
+            users = db.child("users").get().val()
+            for i in users:
+                print(i)
+                print(users[i])
+                print(users[i].get('email'))
+                if users[i]["email"] == username:
+                    print("AAAAAAAA")
+                    print(users[i]['department'])
+                    if users[i]["department"] == 'First Responder':
+                        return render_template('mockupSign-In.html')
+                    if users[i]["department"] == 'Operator':
+                        return render_template('operationsDashboard.html')
+                    if users[i]["department"] == 'Operations Chief':
+                        print("Renderin'")
+                        return render_template('operationsChiefDashboard.html')
+            print("cc")
+            print(users)
         except:
-            login = "login failed"
-        db = firebase.database()
-        return render_template('operationsDashboard.html', value=login)
+            login = "login failed"        
+        return render_template('mockupSign-In.html', value=login)
+
     #new account
     elif read['TYPE'] == 'CU':
         print(read)
@@ -65,11 +99,8 @@ def my_form_post():
         department = read['department']
         try:
             auth.create_user_with_email_and_password(username, password)
-            user = auth.sign_in_with_email_and_password(username, password)
-            db = firebase.database()
-            db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
+            db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department})
         except:
-            
             return render_template('mockupSign-In.html', value="failed account creation")
         return render_template('mockupSign-In.html', value="success")
 #    return processed_text

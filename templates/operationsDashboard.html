@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
+
+
 <body>
 	<!-- The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">
@@ -15,7 +17,7 @@
 		<h3>Create New Event</h3>
 		<label for="EventName">Event Name:<br></label>
 		<input type="text" name="EventName" id="eventName"> <br>
-		<input type = "text" value = "CNEO" name = "TYPE">
+		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
 		<label for="location">Location:<br></label>
 		<input type="text" placeholder="Location" name="location" id="location"> <br>
 		<select name="urgency">

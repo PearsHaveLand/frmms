@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href=" {{ url_for('static', filename = 'styles/SignIn.css') }}">
+
 <body>
 	<h2 id="WelcomeBanner">Welcome to the First Responder Mission Management System</h2>
 	<div> {{ value }} </div>
 	<div id="ExteriorBox">
 	<div id="SignInBox">
 		<form method = "post">
-		  <input type = "text" value = "SIEU" name = "TYPE">
+		  <input type = "text" value = "SIEU" name = "TYPE" style = "display:none;">
 			<h3>Sign in:</h3>
 			<label for="email">Email address:<br></label>
 			<input type="text" placeholder="Enter email" name="email"> <br>
@@ -18,7 +19,7 @@
 	</div>
 	<div id="SignUpBox">
 		<form method = "post">
-		  <input type = "text" value = "CU" name = "TYPE">
+		  <input type = "text" value = "CU" name = "TYPE" style="display:none;">
 			<h3>Register:</h3>
 			<label for="email">email:<br></label>
 			<input type="text" placeholder="email" name="email"> <br>

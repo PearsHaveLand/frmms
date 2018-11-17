@@ -7,9 +7,9 @@ import pyrebase
 config = {
   "apiKey": "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
   "authDomain": "cmsc447-af201.firebaseapp.com",
-  "databaseURL": "https://cmsc447-af201.firebaseio.com/", #check               
-  "storageBucket": "cmsc447-af201.appspot.com"#,
-#  "serviceAccount": "cmsc447-af201-22ab2aceacc0.json"
+  "databaseURL": "https://cmsc447-af201.firebaseio.com/", #check                
+  "storageBucket": "cmsc447-af201.appspot.com",
+  "serviceAccount": "cmsc447-af201-22ab2aceacc0.json"
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -20,8 +20,11 @@ firebase = pyrebase.initialize_app(config)
 #    print("a")
 #print(
 
+@app.route('/')
+def test():
+    return render_template('mockupSign-In.html', value="AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4")
 
-
+"""
 @app.route('/')
 def my_form():
     print("A")
@@ -57,10 +60,10 @@ def my_form_post():
         db = firebase.database()
         print("d")
         
-#        users = db.child("users").get(user['idToken'])
+        users = db.child("users").get(user['idToken'])
 
         print("e")
-#        print(users)
+        print(users)
         
         return render_template('operationsDashboard.html', value=login)
 
@@ -90,3 +93,4 @@ def my_form_post():
 #    return processed_text
 if __name__ == '__main__':
     app.run(use_reloader=True, debug=True)
+"""

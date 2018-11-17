@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
+
+<script>
+  function serverMagic() {
+    return {{ magic }};
+  
+  }
+  // Set the configuration for your app
+  // TODO: Replace with your project's config object
+  var config = {
+    apiKey: serverMagic(),
+    authDomain: "cmsc447-af201.firebaseapp.com",
+    databaseURL: "https://cmsc447-af201.firebaseio.com/",
+    storageBucket: "cmsc447-af201.appspot.com"
+  };
+  firebase.initializeApp(config);
+
+  // Get a reference to the database service
+  var database = firebase.database();
+//  console.log(database)
+</script>
 <body>
 	<!-- The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">
@@ -15,6 +35,7 @@
 		<h3>Create New Event</h3>
 		<label for="EventName">Event Name:<br></label>
 		<input type="text" name="EventName" id="eventName"> <br>
+		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
 		<label for="location">Location:<br></label>
 		<input type="text" placeholder="Location" name="location" id="location"> <br>
 		<select name="urgency">
