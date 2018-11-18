@@ -10,6 +10,8 @@
 	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 	crossorigin=""></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this -->
 <script>
   // Initialize Firebase
   var config = {
@@ -36,7 +38,7 @@
   console.log(i)
   console.log(snapshot.val()[i]["location"])
   //location, name, notes, team, urgency
-  htmlstr = htmlstr + '<div class="eventDisplayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><input name="editEvent" type="submit" id="editEvent" value="Edit"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><input name="editEvent" type="submit" id="editEvent" value="Edit"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
 
   }
   document.getElementById("holder").innerHTML = htmlstr  
@@ -45,7 +47,7 @@
 </script>
 
 
-<body onload="myFunction()">
+<body onload="initializeMap()">
 
 	<div class="header" id="pageHeader">
 		<h3>Operator Dashboard</h3>
@@ -60,11 +62,11 @@
 	<div class="sidebar">
 	
 	<!-- This is where individual events will be stored -->
-	<div class="eventViewer" id="eventViewer">
+	<div class="itemViewer" id="eventViewer">
 		<div class="header">
 			<h3>Event Viewer</h3>
 		</div>
-		<div class="eventDisplayItem" id="exampleEvent">
+		<div class="displayItem" id="exampleEvent">
 			<p>Example Event
 				<form align="right" name="editLabel" method="post">
 					<label class="topRightBtn">
@@ -104,7 +106,7 @@
 		<label for="notes">Notes:</label>
 		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
 		
-		<input type = "submit">
+		<input type="submit" id="submitBtn">
 	</form>
 	</div>
 	</div>
@@ -117,14 +119,21 @@
 	</div>
 	
 	<script>
-		function myFunction() {
-		
+		function initializeMap() {
 			//L is the name of the map to be used in our project
 			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
 			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(mymap);
+			}).addTo(mymap);	
 		}
+		
+		//Necessary initialization for Google address autocompletion
+		function initializeGoogleMaps() {
+			var input = document.getElementById('location');
+			var options = {componentRestrictions: {country: 'us'}};            
+			new google.maps.places.Autocomplete(input, options); 
+		}
+		google.maps.event.addDomListener(window, 'load', initializeGoogleMaps);
 	</script>
 </body>
 </html>

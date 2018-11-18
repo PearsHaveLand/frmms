@@ -24,13 +24,14 @@ h3{
 	padding:0px;
 }
 
-.eventViewer{
+.itemViewer{
 	position:sticky;
 	height:50%;
 	margin:0px;
+	overflow:scroll;
 }
 
-.eventDisplayItem{
+.displayItem{
 	margin:0px;
 	border:1px solid black;
 	font-family:Arial;

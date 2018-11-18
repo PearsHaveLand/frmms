@@ -9,7 +9,7 @@
 	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 	crossorigin=""></script>
 </head>
-<body onload="myFunction()">
+<body onload="initializeMap()">
 	<div class="header" id="pageHeader">
 		<h3>Operations Chief Dashboard</h3>
 		<!-- The Log out button -->
@@ -23,11 +23,11 @@
 	<div class="sidebar">
 	
 	<!-- This is where individual missions will be stored -->
-	<div class="missionViewer" id="missionViewer">
+	<div class="itemViewer" id="missionViewer">
 		<div class="header">
 			<h3>mission Viewer</h3>
 		</div>
-		<div class="missionDisplayItem" id="examplemission">
+		<div class="displayItem" id="examplemission">
 			<p>Example mission
 				<form align="right" name="editLabel" method="post">
 					<label class="topRightBtn">
@@ -79,7 +79,7 @@
 	</div>
 	
 	<script>
-		function myFunction() {
+		function initializeMap() {
 		
 			//L is the name of the map to be used in our project
 			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
