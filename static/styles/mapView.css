@@ -62,3 +62,11 @@ h3{
 label{
 	font-family:"Arial";
 }
+
+#mapView{
+	margin-left: 26%;
+}
+
+#mapid {
+	height: 550px;
+	}
