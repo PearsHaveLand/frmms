@@ -11,7 +11,7 @@
 </head>
 <body onload="myFunction()">
 	<div class="header" id="pageHeader">
-		<h3>Operations Chief Dashboard</h3>
+		<h3>Operator Dashboard</h3>
 		<!-- The Log out button -->
 		<form align="right" name="logoutLabel" method="post">
 		<label class="logout">
@@ -19,50 +19,50 @@
 		</label>
 		</form>
 	</div>
-	<!-- The sidebar, contains the mission viewer and individual missions -->
+	<!-- The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">
 	
-	<!-- This is where individual missions will be stored -->
-	<div class="missionViewer" id="missionViewer">
+	<!-- This is where individual events will be stored -->
+	<div class="eventViewer" id="eventViewer">
 		<div class="header">
-			<h3>mission Viewer</h3>
+			<h3>Event Viewer</h3>
 		</div>
-		<div class="missionDisplayItem" id="examplemission">
-			<p>Example mission
+		<div class="eventDisplayItem" id="exampleEvent">
+			<p>Example Event
 				<form align="right" name="editLabel" method="post">
 					<label class="topRightBtn">
-						<input name="editmission" type="submit" id="editmission" value="Edit">
+						<input name="editEvent" type="submit" id="editEvent" value="Edit">
 					</label>
 				</form>
 			</p>
 			<p>Location: Example location</p>
 		</div>
 	</div>
-	<div class="missionCreator">
-	<!-- Form for creation of missions -->
+	<div class="eventCreator">
+	<!-- Form for creation of events -->
 	<div class="header">
-		<h3>Create New mission</h3>
+		<h3>Create New Event</h3>
 	</div>
 	<form method = "post">
-		<label for="missionName">mission Name:<br></label>
-		<!-- Contains mission name -->
-		<input type="text" name="missionName" id="missionName"> <br>
+		<label for="EventName">Event Name:<br></label>
+		<!-- Contains event name -->
+		<input type="text" name="EventName" id="eventName"> <br>
 
 		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
 
 
 
 		<label for="location">Location:<br></label>
-		<!-- Contains mission location -->
+		<!-- Contains event location -->
 		<input type="text" placeholder="Location" name="location" id="location"> <br>
-		<!-- Contains mission urgency -->
+		<!-- Contains event urgency -->
 		<select name="urgency">
 		  <option value="high">High</option>
 		  <option value="medium">Medium</option>
 		  <option value="low">Low</option>
 		</select>
 <br>
-		<!-- Contains mission notes -->
+		<!-- Contains event notes -->
 		<label for="notes">Notes:</label>
 		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
 		
@@ -90,34 +90,3 @@
 	</script>
 </body>
 </html>
-
-
-<!--
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
-<body>
-	<div class="sidebar">
-	<div class="missionViewer">
-		<h3>Mission Viewer</h3>
-		<div class="missionItem">
-			<p>Test Mission Name</p>
-		</div>
-	</div>
-	<div class="MissionCreator">
-		<h3>Create New Mission</h3>
-		<label for="MissionName">Mission Name:<br></label>
-		<input type="text" name="MissionName" id="MissionName"> <br>
-		<p id="frLabel" class="drodDownLabel">First Responders:</p>
-		<select name="firstResponders" id="frDropdown">
-				<option value="frTest">Test Responder</option>
-		</select><br>
-		<p id="missionLabel" class="drodDownLabel">missions:</p>
-		<select name="missions" id="missionDropdown">
-				<option value="missionTest">Test mission</option>
-		</select><br>
-		<input type = "submit">
-	</div>
-<body>
-</html>
--->
