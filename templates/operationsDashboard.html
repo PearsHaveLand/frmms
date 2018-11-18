@@ -2,8 +2,43 @@
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
 
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
+    authDomain: "cmsc447-af201.firebaseapp.com",
+    databaseURL: "https://cmsc447-af201.firebaseio.com",
+    projectId: "cmsc447-af201",
+    storageBucket: "cmsc447-af201.appspot.com",
+    messagingSenderId: "39922165359"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+  console.log(database)
+
+//  var userId = firebase.auth().currentUser.uid;
+  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+  
+  //return snapshot.val()
+  console.log(snapshot.val())
+  console.log("A")
+  var htmlstr = ''
+  for(i in snapshot.val()){
+  console.log(i)
+  console.log(snapshot.val()[i]["location"])
+  //location, name, notes, team, urgency
+  htmlstr = htmlstr + '<div class="eventDisplayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><input name="editEvent" type="submit" id="editEvent" value="Edit"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+
+  }
+  document.getElementById("holder").innerHTML = htmlstr  
+  });
+
+</script>
 
 <body>
+  <input type ="button" onclick = "funky()">
 	<div class="header" id="pageHeader">
 		<h3>Operator Dashboard</h3>
 		<!-- The Log out button -->
@@ -31,6 +66,7 @@
 			</p>
 			<p>Location: Example location</p>
 		</div>
+		<div id = "holder"></div>
 	</div>
 	<div class="eventCreator">
 	<!-- Form for creation of events -->

@@ -40,7 +40,7 @@ def my_form_post():
 
 
     data = {"name": "Mortimer 'Morty' Smith"}
-    db.child("users").child("Morty").set(data,user['idToken'])
+#    db.child("users").child("Morty").set(data,user['idToken'])
     print("BINIT")
     #db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department}, user['idToken'])
     read = request.form
@@ -55,6 +55,13 @@ def my_form_post():
     #auth = firebase.auth()
     if read['TYPE'] == 'CNEO':
         print("A")
+        name=read['EventName']
+        location=read['location']
+        urgency=read['urgency']
+        notes=read['notes']
+        
+        db.child("Events").push({"name":name, "location":location, "urgency":urgency, "notes":notes, "team":""})
+        return render_template('operationsDashboard.html')
     elif read['TYPE'] == 'SIEU':
         print("A")
         username = read['email']
