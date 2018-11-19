@@ -4,12 +4,15 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
       integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
       crossorigin=""/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
 	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 	crossorigin=""></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this --> <!-- how embarrassing -->
 <script>
   // Initialize Firebase
   var config = {
@@ -40,7 +43,11 @@
 
   }
   document.getElementById("holder").innerHTML = htmlstr  
+
+
+
   });
+
 </script>
 
 
@@ -211,12 +218,58 @@
   </div>
 	
 	<script>
+var mymap;
+	  function addPins() {
+	    // Initialize Firebase
+//  var config = {
+//    apiKey: "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
+//    authDomain: "cmsc447-af201.firebaseapp.com",
+//    databaseURL: "https://cmsc447-af201.firebaseio.com",
+//    projectId: "cmsc447-af201",
+//    storageBucket: "cmsc447-af201.appspot.com",
+//    messagingSenderId: "39922165359"
+//  };
+//  firebase.initializeApp(config);
+
+  var database = firebase.database();
+  console.log(database)
+
+//  var userId = firebase.auth().currentUser.uid;
+  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+  
+  //return snapshot.val()
+//  console.log(snapshot.val())
+//  console.log("A")
+  var htmlstr = ''
+  for(i in snapshot.val()){
+//  console.log(i)
+//  console.log(snapshot.val()[i]["location"])
+  //location, name, notes, team, urgency
+ 
+	  console.log("FINNA START")
+   $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+	  console.log("Here ye here ye");
+     console.log(data);
+	  for(j in data){
+	  console.log(data[j]["lat"]);
+	  marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
+	  }
+    });
+//  var lat = snapshot.val()[i]["location"];
+//  var long = snapshot.val()[i]["location"];
+//	  marker = L.marker([lat, long]).addTo(mymap);
+ }
+  });
+	  
+}
+	  
 		function initializeMap() {
 			//L is the name of the map to be used in our project
-			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
+			mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
 			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(mymap);	
+		addPins()
 		}
 		
 		//Necessary initialization for Google address autocompletion
@@ -249,8 +302,8 @@
 				}
 			}
 		}
-		
+
 	</script>
->>>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c
+<!-- />>>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c -->
 </body>
 </html>

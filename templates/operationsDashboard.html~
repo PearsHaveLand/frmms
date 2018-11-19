@@ -95,7 +95,7 @@
   <div class="sidebar">
     
 	<!-- This is where individual events will be stored -->
-<<<<<<< HEAD
+<!--<<<<<<< HEAD
 	<div class="eventViewer" id="eventViewer">
 	  <div class="header">
 	    <h3>Event Viewer</h3>
@@ -113,13 +113,13 @@
 	  <div id = "holder"></div>
 	</div>
 	<div class="eventCreator">
-	  <!-- Form for creation of events -->
+	
 	  <div class="header">
 	    <h3>Create New Event</h3>
 	  </div>
 	  <form method = "post">
 	    <label for="EventName">Event Name:<br></label>
-	    <!-- Contains event name -->
+	
 	    <input type="text" name="EventName" id="eventName"> <br>
 	    
 	    <input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
@@ -127,24 +127,24 @@
 	    
 	    
 	    <label for="location">Location:<br></label>
-	    <!-- Contains event location -->
+	
 	    <div>		<input type="text" placeholder="Location" name="location" id="location"> <br>
 	      
 	    </div>
-	    <!-- Contains event urgency -->
+	
 	    <select name="urgency">
 	      <option value="high">High</option>
 	      <option value="medium">Medium</option>
 	      <option value="low">Low</option>
 	    </select>
 	    <br>
-	    <!-- Contains event notes -->
+	
 	    <label for="notes">Notes:</label>
 	    <input type="text" placeholder="Notes" name="notes" id="notes"> <br>
 	    
 	    <input type = "submit">
 	  </form>
-=======
+======-->
 	<div class="itemViewer" id="eventViewer">
 		<div class="header">
 			<h3>Event Viewer</h3>
@@ -199,7 +199,7 @@
 		
 		<!-- The actual map, required the id "mapid" for the program to work.-->
 		<div id="mapid"></div>
->>>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c
+<!--  />>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c -->
 	</div>
   </div>
   
@@ -210,18 +210,6 @@
     <div id="mapid"></div>
   </div>
 	
-<<<<<<< HEAD
-  <script>
-    function myFunction() {
-    
-    //L is the name of the map to be used in our project
-    var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mymap);
-    }
-  </script>
-=======
 	<script>
 		function initializeMap() {
 			//L is the name of the map to be used in our project
