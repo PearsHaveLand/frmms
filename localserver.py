@@ -62,6 +62,12 @@ def my_form_post():
         
         db.child("Events").push({"name":name, "location":location, "urgency":urgency, "notes":notes, "team":""})
         return render_template('operationsDashboard.html')
+    elif read['TYPE'] == 'CNMOC':
+        name=read['missionName']
+        location=read['location']
+        notes = read['notes']
+        db.child("Missions").push({"name":name, "location": location, "notes":notes, "team":""});
+        return render_template("operationsChiefDashboard.html");
     elif read['TYPE'] == 'SIEU':
         print("A")
         username = read['email']
