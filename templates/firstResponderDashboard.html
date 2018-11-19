@@ -9,7 +9,7 @@
 	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 	crossorigin=""></script>
 </head>
-<body onload="myFunction()">
+<body onload="initializeMap()">
 	<div class="header" id="pageHeader">
 		<h3>Operator Dashboard</h3>
 		<!-- The Log out button -->
@@ -79,7 +79,7 @@
 	</div>
 	
 	<script>
-		function myFunction() {
+		function initializeMap() {
 		
 			//L is the name of the map to be used in our project
 			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);

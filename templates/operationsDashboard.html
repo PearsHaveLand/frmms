@@ -8,6 +8,8 @@
 	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 	crossorigin=""></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this -->
 <script>
   // Initialize Firebase
   var config = {
@@ -34,16 +36,51 @@
   console.log(i)
   console.log(snapshot.val()[i]["location"])
   //location, name, notes, team, urgency
-  htmlstr = htmlstr + '<div class="eventDisplayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><input name="editEvent" type="submit" id="editEvent" value="Edit"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editEvent" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
 
   }
   document.getElementById("holder").innerHTML = htmlstr  
   });
-
 </script>
 
 
-<body onload="myFunction()">
+<body onload="initializeMap()">
+	<!-- The Modal -->
+	<div id="editModal" class="editModal">
+
+	<!-- Modal content -->
+	<div class="modalContent">
+		<form method = "post">
+		<div class="header">
+			<h3>Event Editor</h3>
+			<span class="close">&times;</span>
+		</div>
+		<label for="EventName">Event Name:<br></label>
+		<!-- Contains event name -->
+		<input type="text" name="EventName" id="eventName"> <br>
+
+		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
+
+		<label for="location">Location:<br></label>
+		<!-- Contains event location -->
+		<input type="text" placeholder="Location" name="location" id="location"> <br>
+		<!-- Contains event urgency -->
+		<select name="urgency">
+		  <option value="high">High</option>
+		  <option value="medium">Medium</option>
+		  <option value="low">Low</option>
+		</select>
+		<br>
+		<!-- Contains event notes -->
+		<label for="notes">Notes:</label>
+		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
+		
+		<input type="submit" id="submitBtn">
+		</form>
+	</div>
+
+	</div>
+	
 
   <div class="header" id="pageHeader">
     <h3>Operator Dashboard</h3>
@@ -58,6 +95,7 @@
   <div class="sidebar">
     
 	<!-- This is where individual events will be stored -->
+<!--<<<<<<< HEAD
 	<div class="eventViewer" id="eventViewer">
 	  <div class="header">
 	    <h3>Event Viewer</h3>
@@ -75,13 +113,13 @@
 	  <div id = "holder"></div>
 	</div>
 	<div class="eventCreator">
-	  <!-- Form for creation of events -->
+	
 	  <div class="header">
 	    <h3>Create New Event</h3>
 	  </div>
 	  <form method = "post">
 	    <label for="EventName">Event Name:<br></label>
-	    <!-- Contains event name -->
+	
 	    <input type="text" name="EventName" id="eventName"> <br>
 	    
 	    <input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
@@ -89,23 +127,79 @@
 	    
 	    
 	    <label for="location">Location:<br></label>
-	    <!-- Contains event location -->
+	
 	    <div>		<input type="text" placeholder="Location" name="location" id="location"> <br>
 	      
 	    </div>
-	    <!-- Contains event urgency -->
+	
 	    <select name="urgency">
 	      <option value="high">High</option>
 	      <option value="medium">Medium</option>
 	      <option value="low">Low</option>
 	    </select>
 	    <br>
-	    <!-- Contains event notes -->
+	
 	    <label for="notes">Notes:</label>
 	    <input type="text" placeholder="Notes" name="notes" id="notes"> <br>
 	    
 	    <input type = "submit">
 	  </form>
+======-->
+	<div class="itemViewer" id="eventViewer">
+		<div class="header">
+			<h3>Event Viewer</h3>
+		</div>
+		<div class="displayItem" id="exampleEvent">
+			<p>Example Event
+				<form align="right" name="editLabel" method="post">
+					<label class="topRightBtn">
+						<button type="button" id="editEvent" onclick="displayEdit()">Edit</button>
+					</label>
+				</form>
+			</p>
+			<p>Location: Example location</p>
+		</div>
+		<div id = "holder"></div>
+	</div>
+	<div class="eventCreator">
+	<!-- Form for creation of events -->
+	<div class="header">
+		<h3>Create New Event</h3>
+	</div>
+	<form method = "post">
+		<label for="EventName">Event Name:<br></label>
+		<!-- Contains event name -->
+		<input type="text" name="EventName" id="eventName"> <br>
+
+		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
+
+
+
+		<label for="location">Location:<br></label>
+		<!-- Contains event location -->
+		<input type="text" placeholder="Location" name="location" id="location"> <br>
+		<!-- Contains event urgency -->
+		<select name="urgency">
+		  <option value="high">High</option>
+		  <option value="medium">Medium</option>
+		  <option value="low">Low</option>
+		</select>
+<br>
+		<!-- Contains event notes -->
+		<label for="notes">Notes:</label>
+		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
+		
+		<input type="submit" id="submitBtn">
+	</form>
+	</div>
+	</div>
+	
+	<!-- Container for the map view, in case we want to add more into the map view area -->
+	<div id="mapView">
+		
+		<!-- The actual map, required the id "mapid" for the program to work.-->
+		<div id="mapid"></div>
+<!--  />>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c -->
 	</div>
   </div>
   
@@ -116,15 +210,47 @@
     <div id="mapid"></div>
   </div>
 	
-  <script>
-    function myFunction() {
-    
-    //L is the name of the map to be used in our project
-    var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mymap);
-    }
-  </script>
+	<script>
+		function initializeMap() {
+			//L is the name of the map to be used in our project
+			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
+			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(mymap);	
+		}
+		
+		//Necessary initialization for Google address autocompletion
+		function initializeGoogleMaps() {
+			var input = document.getElementById('location');
+			var options = {componentRestrictions: {country: 'us'}};            
+			new google.maps.places.Autocomplete(input, options); 
+		}
+		google.maps.event.addDomListener(window, 'load', initializeGoogleMaps);
+		
+		// When the user clicks the button, open the modal 
+		function displayEdit() {
+			// Get the modal
+			var modal = document.getElementById('editModal');
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			modal.style.display = "block";
+			
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+		}
+		
+	</script>
+>>>>>>> 168ca268d40f5d43e0aa16b5ce599bae9404530c
 </body>
 </html>
