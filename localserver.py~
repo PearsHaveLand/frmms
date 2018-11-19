@@ -90,7 +90,7 @@ def my_form_post():
                     print("AAAAAAAA")
                     print(users[i]['department'])
                     if users[i]["department"] == 'First Responder':
-                        return render_template('mockupSign-In.html')
+                        return render_template('firstResponderDashboard.html')
                     if users[i]["department"] == 'Operator':
                         return render_template('operationsDashboard.html')
                     if users[i]["department"] == 'Operations Chief':

@@ -4,7 +4,7 @@
 
 <body>
 	<h2 id="WelcomeBanner">Welcome to the First Responder Mission Management System</h2>
-	
+	<div> {{ value }} </div>
 	<div id="ExteriorBox">
 	<div id="SignInBox">
 		<form method = "post">

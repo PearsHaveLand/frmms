@@ -96,6 +96,7 @@
       <label class="logout">
 	<input name="logout" type="submit" id="logout" value="Log out">
       </label>
+      <input type = "text" value = "LOGOUT" name = "TYPE" style="display:none;">
     </form>
   </div>
   <!-- The sidebar, contains the event viewer and individual events -->
@@ -246,12 +247,12 @@ var mymap;
 //  console.log(snapshot.val()[i]["location"])
   //location, name, notes, team, urgency
  
-	  console.log("FINNA START")
+	 // console.log("FINNA START")
    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
-	  console.log("Here ye here ye");
-     console.log(data);
+	//  console.log("Here ye here ye");
+     //console.log(data);
 	  for(j in data){
-	  console.log(data[j]["lat"]);
+	  //console.log(data[j]["lat"]);
 	  marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
 	  }
     });
