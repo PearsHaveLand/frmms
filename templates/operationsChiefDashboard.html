@@ -59,30 +59,23 @@
 	<div class="modalContent">
 		<form method = "post">
 		<div class="header">
-			<h3>mission Editor</h3>
+			<h3>Mission Editor</h3>
 			<span class="close">&times;</span>
 		</div>
-		<label for="missionName">Mission Name:<br></label>
-		<!-- Contains mission name -->
-		<input type="text" name="missionName" id="missionName"> <br>
-
-		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
-
-		<label for="location">Location:<br></label>
-		<!-- Contains mission location -->
-		<input type="text" placeholder="Location" name="location" id="location"> <br>
-		<!-- Contains mission urgency -->
-		<select name="urgency">
-		  <option value="high">High</option>
-		  <option value="medium">Medium</option>
-		  <option value="low">Low</option>
-		</select>
-		<br>
-		<!-- Contains mission notes -->
-		<label for="notes">Notes:</label>
-		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
-		
-		<input type="submit" id="submitBtn">
+			<label for="missionName" class="modalText">Mission Name:<br></label>
+			<!-- Contains mission name -->
+			<input type="text" class="modalText" name="missionName" id="missionName"> <br>
+			<input type="text" class="modalText" value="CNEO" name="TYPE" style="display:none;">
+			<label for="firstResponders" class="modalText">First Responders:<br></label>
+			<select name="firstResponders" class="modalText">
+			  <option value="exampleFirstResponder">First Responder Name</option>
+			</select>
+			<br>
+			<label for="events" class="modalText">Events:<br></label>
+			<select name="events" class="modalText">
+			  <option value="exampleEvent">Event Name (maybe ID?)</option>
+			</select>
+			<input type="submit" id="submitBtn" class="modalText">
 		</form>
 	</div>
 
