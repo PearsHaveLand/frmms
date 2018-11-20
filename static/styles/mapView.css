@@ -20,7 +20,7 @@ h3{
 	height:100%;
 	position:absolute;
 	background:#EEEEEE;
-	border:1px solid black;
+	border-right:1px solid black;
 	padding:0px;
 }
 
@@ -31,9 +31,16 @@ h3{
 	overflow:scroll;
 }
 
+.frItemViewer{
+	position:sticky;
+	height:100%;
+	margin:0px;
+	overflow:scroll;
+}
+
 .displayItem{
 	margin:0px;
-	border:1px solid black;
+	border-bottom:1px solid black;
 	font-family:Arial;
 	padding-left:10px;
 }
@@ -79,9 +86,14 @@ h3{
 .modalContent {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 0px;
     border: 1px solid #888;
     width: 40%;
+	padding-bottom: 10px;
+}
+
+.modalText {
+	margin-left: 10px;
 }
 
 /* The Close Button */
