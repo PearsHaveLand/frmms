@@ -11,7 +11,7 @@
 </head>
 <body onload="initializeMap()">
 	<div class="header" id="pageHeader">
-		<h3>Operator Dashboard</h3>
+		<h3>First Responder Dashboard</h3>
 		<!-- The Log out button -->
 		<form align="right" name="logoutLabel" method="post">
 		<label class="logout">
@@ -23,11 +23,11 @@
 	<div class="sidebar">
 	
 	<!-- This is where individual events will be stored -->
-	<div class="eventViewer" id="eventViewer">
+	<div class="frItemViewer" id="eventViewer">
 		<div class="header">
-			<h3>Event Viewer</h3>
+			<h3>Current Mission: None</h3>
 		</div>
-		<div class="eventDisplayItem" id="exampleEvent">
+		<div class="displayItem" id="exampleEvent">
 			<p>Example Event
 				<form align="right" name="editLabel" method="post">
 					<label class="topRightBtn">
@@ -37,37 +37,6 @@
 			</p>
 			<p>Location: Example location</p>
 		</div>
-	</div>
-	<div class="eventCreator">
-	<!-- Form for creation of events -->
-	<div class="header">
-		<h3>Create New Event</h3>
-	</div>
-	<form method = "post">
-		<label for="EventName">Event Name:<br></label>
-		<!-- Contains event name -->
-		<input type="text" name="EventName" id="eventName"> <br>
-
-		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
-
-
-
-		<label for="location">Location:<br></label>
-		<!-- Contains event location -->
-		<input type="text" placeholder="Location" name="location" id="location"> <br>
-		<!-- Contains event urgency -->
-		<select name="urgency">
-		  <option value="high">High</option>
-		  <option value="medium">Medium</option>
-		  <option value="low">Low</option>
-		</select>
-<br>
-		<!-- Contains event notes -->
-		<label for="notes">Notes:</label>
-		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
-		
-		<input type = "submit">
-	</form>
 	</div>
 	</div>
 	
