@@ -10,6 +10,7 @@
 	crossorigin=""></script>
 </head>
 <body onload="initializeMap()">
+	
 	<div class="header" id="pageHeader">
 		<h3>First Responder Dashboard</h3>
 		<!-- The Log out button -->
@@ -19,14 +20,23 @@
 		</label>
 		</form>
 	</div>
-	<!-- The sidebar, contains the event viewer and individual events -->
-	<div class="sidebar">
 	
-	<!-- This is where individual events will be stored -->
+	<!-- @Joe
+		The sidebar, contains the event viewer and individual events -->
+	<div class="sidebar">	
+	<!-- @Joe
+		This is where individual events will be stored.
+		Please populate this with displayItems. Each onemptied
+		an event in the FR's currently-assigned mission. -->
 	<div class="frItemViewer" id="eventViewer">
 		<div class="header">
+			<!-- @Joe 
+				Please populate this element with the FR's current
+			    mission name-->
 			<h3>Current Mission: None</h3>
 		</div>
+		<!-- @Joe
+			Each displayItem should follow this format -->
 		<div class="displayItem" id="exampleEvent">
 			<p>Example Event
 				<form align="right" name="editLabel" method="post">
@@ -41,8 +51,7 @@
 	</div>
 	
 	<!-- Container for the map view, in case we want to add more into the map view area -->
-	<div id="mapView">
-		
+	<div id="mapView">	
 		<!-- The actual map, required the id "mapid" for the program to work.-->
 		<div id="mapid"></div>
 	</div>
