@@ -53,8 +53,9 @@ def my_form_post():
     print(len(read))
     print(read)
     #auth = firebase.auth()
+    if read['TYPE'] == 'EDDY':
     if read['TYPE'] == 'LOGOUT':
-        return render_template("mockup-SignIn.html")
+        return render_template("mockupSign-In.html")
     if read['TYPE'] == 'CNEO':
 
         print("A")

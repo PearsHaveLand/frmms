@@ -36,11 +36,13 @@
   console.log("A")
   var htmlstr = ''
   for(i in snapshot.val()){
-  console.log(i)
-  console.log(snapshot.val()[i]["location"])
+  console.log(i);
+  console.log(snapshot.val()[i]["location"]);
   //location, name, notes, team, urgency
-  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editEvent" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
-
+  console.log(i);
+  console.log("SPICY PEPPER");
+  htmlstr = htmlstr + "<div class='displayItem'> <p>" + snapshot.val()[i]["name"] + "<form align='right' name='editLabel' method='post'><label class='topRightBtn'><button type='button' id='editEvent' onclick='displayEdit(" + '"' + i + '"' + ")'>Edit</button></label></form></p><p>Location: '" + snapshot.val()[i]["location"]  + "</p></div>";  
+  
   }
   document.getElementById("holder").innerHTML = htmlstr  
 
@@ -54,7 +56,6 @@
 <body onload="initializeMap()">
 	<!-- The Modal -->
 	<div id="editModal" class="editModal">
-
 	<!-- Modal content -->
 	<div class="modalContent">
 		<form method = "post">
@@ -62,13 +63,14 @@
 			<h3>Event Editor</h3>
 			<span class="close">&times;</span>
 		</div>
-		<label for="EventName" class="modalText">Event Name:<br></label>
+
+		<div id = "EMEM" style="display:none;"> </div>
+		<label for="EventName">Event Name:<br></label>
 		<!-- Contains event name -->
 		<input type="text" name="EventName" id="eventName"> <br>
+		<input type = "text" value = "EDDY" name = "TYPE" style="display:none;">
+		<label for="location" class = "modalText">Location:<br></label>
 
-		<input type = "text" value = "CNEO" name = "TYPE" style="display:none;">
-
-		<label for="location" class="modalText">Location:<br></label>
 		<!-- Contains event location -->
 		<input type="text" placeholder="Location" name="location" id="location" class="modalText"> <br>
 		<!-- Contains event urgency -->
@@ -79,10 +81,11 @@
 		</select>
 		<br>
 		<!-- Contains event notes -->
-		<label for="notes" class="modalText">Notes:</label>
-		<input type="text" placeholder="Notes" name="notes" id="notes" class="modalText"> <br>
-		
-		<input type="submit" id="submitBtn" class="modalText">
+
+		<label for="notes">Notes:</label>
+		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
+		<input type="submit" id="EddysubmitBtn">
+
 		</form>
 	</div>
 
@@ -254,6 +257,7 @@ var mymap;
 	  for(j in data){
 	  //console.log(data[j]["lat"]);
 	  marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
+          break;
 	  }
     });
 //  var lat = snapshot.val()[i]["location"];
@@ -282,10 +286,13 @@ var mymap;
 		google.maps.event.addDomListener(window, 'load', initializeGoogleMaps);
 		
 		// When the user clicks the button, open the modal 
-		function displayEdit() {
+		function displayEdit(i) {
 			// Get the modal
 			var modal = document.getElementById('editModal');
-
+                        document.getElementById('EMEM').innerHTML = i;
+                       
+                        console.log("i: " + i);
+                        console.log("APFKHDPSIDFHDPOIFHDOPSIHFIPOSDFH");
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
 
