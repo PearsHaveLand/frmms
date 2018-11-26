@@ -94,7 +94,7 @@
   </div>
   
   <!-- The sidebar, contains the mission viewer and individual missions -->
-  <div class="sidebar">
+  <div class="sidebar" style="display:inline-block">
 	<div class="itemViewer" id="missionViewer">
 		<div class="header">
 			<h3>Mission Viewer</h3>
@@ -139,22 +139,33 @@
 	</div>
 	</div>
 	
+	<div class="rightsidebar">
+		<div class="header">
+			<h3>Unassigned Events</h3>
+		</div>
+		<!--@Joe please populate this with unassigned events (class displayItem)-->
+		<div class="unassignedlist">
+			<div class="displayItem" id="examplemission">
+				<p>Example mission
+					<form align="right" name="editLabel" method="post">
+						<label class="topRightBtn">
+							<button type="button" id="editmission" onclick="displayEdit()">Edit</button>
+						</label>
+					</form>
+				</p>
+			<p>Location: Example location</p>
+		</div>
+		</div>
+	</div>
+	
+	
 	<!-- Container for the map view, in case we want to add more into the map view area -->
-	<div id="mapView">
-		
+	<div id="ocmapview">	
 		<!-- The actual map, required the id "mapid" for the program to work.-->
 		<div id="mapid"></div>
+		</div>
 	</div>
-  </div>
-  
-  <!-- Container for the map view, in case we want to add more into the map view area -->
-  <div id="mapView">
-    
-    <!-- The actual map, required the id "mapid" for the program to work.-->
-    <div id="mapid"></div>
-  </div>
-	
-	<script>
+  <script>
   var mymap;
 	  function addPins() {
 

@@ -1,4 +1,10 @@
 #WelcomeBanner{
+    position:relative;
+	height:50px;
+    background:#FFCC00;
+    border:2px solid #FFBB00;
+    margin:10px;
+	padding-top:20px;
 	text-align:center;
 }
 #ExteriorBox{

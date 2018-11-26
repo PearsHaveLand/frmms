@@ -24,9 +24,27 @@ h3{
 	padding:0px;
 }
 
+.rightsidebar{
+	width:25%;
+	height:100%;
+	display:inline-block;
+	position:absolute;
+	background:#EEEEEE;
+	border-right:1px solid black;
+	padding:0px;
+	margin-left:74%;
+}
+
 .itemViewer{
 	position:sticky;
 	height:50%;
+	margin:0px;
+	overflow:scroll;
+}
+
+.unassignedlist{
+	position:sticky;
+	height:80%;
 	margin:0px;
 	overflow:scroll;
 }
@@ -123,6 +141,11 @@ label{
 
 #mapView{
 	margin-left: 26%;
+}
+
+#ocmapview{
+	margin-left: 26%;
+	margin-right: 26%;
 }
 
 #mapid {
