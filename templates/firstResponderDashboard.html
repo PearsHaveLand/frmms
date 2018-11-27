@@ -1,17 +1,109 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-	crossorigin=""/>
-	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-	crossorigin=""></script>
 </head>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this --> <!-- how embarrassing -->
+
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAJa-17y_cqUGGq3bvYjCM2PLDwxI2a_i4",
+    authDomain: "cmsc447-af201.firebaseapp.com",
+    databaseURL: "https://cmsc447-af201.firebaseio.com",
+    projectId: "cmsc447-af201",
+    storageBucket: "cmsc447-af201.appspot.com",
+    messagingSenderId: "39922165359"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+  console.log(database)
+
+//  var userId = firebase.auth().currentUser.uid;
+  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+
+  //return snapshot.val()
+  console.log(snapshot.val())
+  console.log("A")
+  var htmlstr = ''
+  for(i in snapshot.val()){
+  console.log(i);
+  console.log(snapshot.val()[i]["location"]);
+  //location, name, notes, team, urgency
+  console.log(i);
+  console.log("SPICY PEPPER");
+  visibilityequalfalsestring = 'style="display:none"';
+  htmlstr = htmlstr + "<div class='displayItem'> <p>" + snapshot.val()[i]["name"] + "<form align='right' name='editLabel' method='post'><label class='topRightBtn'><button type='button' id='editEvent' onclick='displayEdit(" + '"' + i + '"' +")'>Edit</button></label></form></p><p>Location: '" + snapshot.val()[i]["location"]  + "</p></div>";
+
+  }
+  document.getElementById("holder").innerHTML = htmlstr
+  });
+
+</script>
+
 <body onload="initializeMap()">
 	
+ <!-- The Modal -->
+        <div id="editModal" class="editModal">
+        <!-- Modal content -->
+        <div class="modalContent">
+                <form method = "post">
+                <div class="header">
+                        <h3>Event Editor</h3>
+                        <span class="close">&times;</span>
+                </div>
+
+
+                <label for="EventName">Event Name:<br></label>
+                <!-- Contains event name -->
+                <input type="text" name="EventName" id="eventName"> <br
+>
+
+                <input type = "text" value = "EDDY2" name = "TYPE" style="display:none;">
+                <input type = "text" id="EMEM" name = "EMEM" style="display:none;">
+                <label for="location" class = "modalText">Location:<br></label>
+
+                <!-- Contains event location -->
+                <input type="text" placeholder="Location" name="location" id="location" class="modal\
+Text"> <br>
+                <!-- Contains event urgency -->
+                <select name="urgency" class="modalText" id = "urgency">
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+                <br>
+
+  <!-- Contains event urgency -->
+                <select name="progress" class="modalText" id = "progress">
+                  <option value="unstarted">Unstarted</option>
+                  <option value="inprogress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+                <br>
+                <!-- Contains event notes -->
+
+                <label for="notes">Notes:</label>
+                <input type="text" placeholder="Notes" name="notes" id="notes"> <br>
+                <input type="submit" id="EddysubmitBtn2">
+
+                </form>
+        </div>
+
+        </div>
+
 	<div class="header" id="pageHeader">
+
+
 		<h3>First Responder Dashboard</h3>
 		<!-- The Log out button -->
 		<form align="right" name="logoutLabel" method="post">
@@ -47,6 +139,8 @@
 			</p>
 			<p>Location: Example location</p>
 		</div>
+		<div id="holder">
+		</div>
 	</div>
 	</div>
 	
@@ -55,16 +149,60 @@
 		<!-- The actual map, required the id "mapid" for the program to work.-->
 		<div id="mapid"></div>
 	</div>
-	
-	<script>
-		function initializeMap() {
-		
-			//L is the name of the map to be used in our project
-			var mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
-			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(mymap);
-		}
-	</script>
+	          <script>
+		    var mymap;
+		    function addPins() {
+		    var database = firebase.database();
+		    console.log(database)
+		    var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+		    var htmlstr = ''
+		    for(i in snapshot.val()){
+		    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+		    for(j in data){
+		      marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
+		      break;
+		      }
+		    });
+		    }
+		    });
+		    }
+                    function initializeMap() {
+                    //L is the name of the map to be used in our project
+                    mymap = L.map('mapid').setView([39.2518, -76.7057], 15);
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+                    addPins()
+		    }
+                    //Necessary initialization for Google address autocompletion
+                    function initializeGoogleMaps() {
+                        var input = document.getElementById('location');
+                        var options = {componentRestrictions: {country: 'us'}};
+                        new google.maps.places.Autocomplete(input, options);
+                }
+                google.maps.event.addDomListener(window, 'load', initializeGoogleMaps);
+        // When the user clicks the button, open the modal
+                function displayEdit(i) {
+                        // Get the modal
+                        var modal = document.getElementById('editModal');
+                        document.getElementById('EMEM').value = i;
+var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+     document.getElementById("eventName").value = snapshot.val()[i]['name'];
+     document.getElementById("location").value = snapshot.val()[i]['location'];
+     document.getElementById("urgency").value = snapshot.val()[i]['urgency'];
+     document.getElementById("notes").value = snapshot.val()[i]['notes'];
+});
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+                        modal.style.display = "block";
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                                modal.style.display = "none";
+                        }
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                                if (event.target == modal) {modal.style.display = "none";}
+                        }
+                }
+        </script>
 </body>
 </html>
