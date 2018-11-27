@@ -54,53 +54,53 @@
 <body onload="initializeMap()">
 	
  <!-- The Modal -->
-        <div id="editModal" class="editModal">
-        <!-- Modal content -->
-        <div class="modalContent">
-                <form method = "post">
-                <div class="header">
-                        <h3>Event Editor</h3>
-                        <span class="close">&times;</span>
-                </div>
+	<div id="editModal" class="editModal">
+	<!-- Modal content -->
+	<div class="modalContent">
+		<form method = "post">
+		<div class="header">
+			<h3>Event Editor</h3>
+			<span class="close">&times;</span>
+		</div>
 
 
-                <label for="EventName">Event Name:<br></label>
-                <!-- Contains event name -->
-                <input type="text" name="EventName" id="eventName"> <br
+		<label for="EventName">Event Name:<br></label>
+		<!-- Contains event name -->
+		<input type="text" name="EventName" id="eventName"> <br
 >
 
-                <input type = "text" value = "EDDY2" name = "TYPE" style="display:none;">
-                <input type = "text" id="EMEM" name = "EMEM" style="display:none;">
-                <label for="location" class = "modalText">Location:<br></label>
+		<input type = "text" value = "EDDY2" name = "TYPE" style="display:none;">
+		<input type = "text" id="EMEM" name = "EMEM" style="display:none;">
+		<label for="location" class = "modalText">Location:<br></label>
 
-                <!-- Contains event location -->
-                <input type="text" placeholder="Location" name="location" id="location" class="modal\
+		<!-- Contains event location -->
+		<input type="text" placeholder="Location" name="location" id="location" class="modal\
 Text"> <br>
-                <!-- Contains event urgency -->
-                <select name="urgency" class="modalText" id = "urgency">
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
-                <br>
+		<!-- Contains event urgency -->
+		<select name="urgency" class="modalText" id = "urgency">
+		  <option value="high">High</option>
+		  <option value="medium">Medium</option>
+		  <option value="low">Low</option>
+		</select>
+		<br>
 
-  <!-- Contains event urgency -->
-                <select name="progress" class="modalText" id = "progress">
-                  <option value="unstarted">Unstarted</option>
-                  <option value="inprogress">In Progress</option>
-                  <option value="completed">Completed</option>
-                </select>
-                <br>
-                <!-- Contains event notes -->
+<!-- Contains event urgency -->
+		<select name="progress" class="modalText" id = "progress">
+		  <option value="unstarted">Unstarted</option>
+		  <option value="inprogress">In Progress</option>
+		  <option value="completed">Completed</option>
+		</select>
+		<br>
+		<!-- Contains event notes -->
 
-                <label for="notes">Notes:</label>
-                <input type="text" placeholder="Notes" name="notes" id="notes"> <br>
-                <input type="submit" id="EddysubmitBtn2">
+		<label for="notes">Notes:</label>
+		<input type="text" placeholder="Notes" name="notes" id="notes"> <br>
+		<input type="submit" id="EddysubmitBtn2">
 
-                </form>
-        </div>
+		</form>
+	</div>
 
-        </div>
+	</div>
 
 	<div class="header" id="pageHeader">
 
@@ -117,32 +117,44 @@ Text"> <br>
 	<!-- @Joe
 		The sidebar, contains the event viewer and individual events -->
 	<div class="sidebar">	
-	<!-- @Joe
-		This is where individual events will be stored.
-		Please populate this with displayItems. Each onemptied
-		an event in the FR's currently-assigned mission. -->
-	<div class="frItemViewer" id="eventViewer">
-		<div class="header">
-			<!-- @Joe 
-				Please populate this element with the FR's current
-			    mission name-->
-			<h3>Current Mission: None</h3>
-		</div>
 		<!-- @Joe
-			Each displayItem should follow this format -->
-		<div class="displayItem" id="exampleEvent">
-			<p>Example Event
-				<form align="right" name="editLabel" method="post">
-					<label class="topRightBtn">
-						<input name="editEvent" type="submit" id="editEvent" value="Edit">
-					</label>
-				</form>
-			</p>
-			<p>Location: Example location</p>
+			This is where individual events will be stored.
+			Please populate this with displayItems. Each onemptied
+			an event in the FR's currently-assigned mission. -->
+		<div class="frItemViewer" id="eventViewer">
+			<div class="header">
+				<!-- @Joe 
+					Please populate this element with the FR's current
+					mission name-->
+				<h3>Current Mission: None</h3>
+			</div>
+			<!-- @Joe
+				Each displayItem should follow this format -->
+			<div class="displayItem" id="exampleEvent">
+				<p>Example Event
+					<form align="right" name="editLabel" method="post">
+						<label class="topRightBtn">
+							<input name="editEvent" type="submit" id="editEvent" value="Edit">
+						</label>
+					</form>
+				</p>
+				<p>Location: Example location</p>
+			</div>
+			<div id="holder">
+			</div>
 		</div>
-		<div id="holder">
+		<!-- Form for creation of missions -->
+		<div class="header">
+			<h3>Create New Team</h3>
 		</div>
-	</div>
+		<form method = "post">
+			<label for="teamname">Team Name:<br></label>
+			<!-- Contains mission name -->
+			<input type="text" name="teamname" id="teamname"> <br>
+
+			<input type="text" value="CNEO" name="TYPE" style="display:none;">
+			<input type="submit" id="submitBtn">
+		</form>
 	</div>
 	
 	<!-- Container for the map view, in case we want to add more into the map view area -->
