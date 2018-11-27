@@ -42,6 +42,7 @@
   console.log(i);
   console.log("SPICY PEPPER");
   visibilityequalfalsestring = 'style="display:none"';
+  
   htmlstr = htmlstr + "<div class='displayItem'> <p>" + snapshot.val()[i]["name"] + "<form align='right' name='editLabel' method='post'><label class='topRightBtn'><button type='button' id='editEvent' onclick='displayEdit(" + '"' + i + '"' +")'>Edit</button></label></form></p><p>Location: '" + snapshot.val()[i]["location"]  + "</p></div>";
 
   }
