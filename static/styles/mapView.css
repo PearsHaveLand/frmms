@@ -20,7 +20,8 @@ h3{
 	height:100%;
 	position:absolute;
 	background:#EEEEEE;
-	border-right:1px solid black;
+	/*border-right:1px solid black;*/
+	border-right:1px solid #cccccc;
 	padding:0px;
 }
 
@@ -57,7 +58,7 @@ h3{
 
 .displayItem{
 	margin:0px;
-	border-bottom:1px solid black;
+	border-bottom:1px solid #cccccc;
 	font-family:Arial;
 	padding-left:10px;
 }

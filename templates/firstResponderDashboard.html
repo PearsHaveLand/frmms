@@ -10,7 +10,7 @@
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this --> <!-- how embarrassing -->
-
+<!--<script type="text/javascript" src="{{ url_for('static', filename = 'pins.js') }}"></script>-->
 
 
 <script>
@@ -104,7 +104,6 @@ Text"> <br>
 
 	<div class="header" id="pageHeader">
 
-
 		<h3>First Responder Dashboard</h3>
 		<!-- The Log out button -->
 		<form align="right" name="logoutLabel" method="post">
@@ -131,10 +130,15 @@ Text"> <br>
 			<!-- @Joe
 				Each displayItem should follow this format -->
 			<div class="displayItem" id="exampleEvent">
-				<p>Example Event
-					<form align="right" name="editLabel" method="post">
+				<form align="right" name="complete" method="post">
 						<label class="topRightBtn">
-							<input name="editEvent" type="submit" id="editEvent" value="Edit">
+							<input name="completebtn" type="submit" id="completebtn" value="Complete">
+						</label>
+				</form>
+				<p>Example Event
+					<form align="right" name="cancel" method="post">
+						<label class="topRightBtn">
+							<input name="cancelbtn" type="submit" id="cancelbtn" value="Cancel">
 						</label>
 					</form>
 				</p>
@@ -143,13 +147,24 @@ Text"> <br>
 			<div id="holder">
 			</div>
 		</div>
-		<!-- Form for creation of missions -->
+		<!-- Form for creation of teams -->
+		<!--
 		<div class="header">
 			<h3>Create New Team</h3>
 		</div>
 		<form method = "post">
 			<label for="teamname">Team Name:<br></label>
-			<!-- Contains mission name -->
+			<input type="text" name="teamname" id="teamname"> <br>
+
+			<input type="text" value="CNEO" name="TYPE" style="display:none;">
+			<input type="submit" id="submitBtn">
+		</form>
+		-->
+		<div class="header">
+			<h3>Create New Team</h3>
+		</div>
+		<form method = "post">
+			<label for="teamname">Team Name:<br></label>
 			<input type="text" name="teamname" id="teamname"> <br>
 
 			<input type="text" value="CNEO" name="TYPE" style="display:none;">
@@ -164,20 +179,37 @@ Text"> <br>
 	</div>
 	          <script>
 		    var mymap;
+			
 		    function addPins() {
-		    var database = firebase.database();
-		    console.log(database)
-		    var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
-		    var htmlstr = ''
-		    for(i in snapshot.val()){
-		    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
-		    for(j in data){
-		      marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
-		      break;
-		      }
-		    });
-		    }
-		    });
+				var PinIcon = L.Icon.extend({
+				options: {
+					iconSize:     [38, 61],
+					shadowSize:   [50, 64],
+					iconAnchor:   [22, 94],
+					shadowAnchor: [4, 62],
+					popupAnchor:  [-3, -76]
+					}
+				});
+				//@Joe - My img sourceing is messed up. But I think that's all
+				//we need to fix to get this working
+				//Please change the iconUrl field to the proper src of the images.
+				var greenPin = new PinIcon({iconUrl: 'greenpin.png'}),
+				redPin = new PinIcon({iconUrl: 'redpin.png'}),
+				yellowPin = new PinIcon({iconUrl: 'yellowpin.png'});
+			
+				var database = firebase.database();
+				console.log(database)
+				var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+				var htmlstr = ''
+				for(i in snapshot.val()){
+				$.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+				for(j in data){
+				  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: redPin}).addTo(mymap)
+				  break;
+				  }
+				});
+				}
+				});
 		    }
                     function initializeMap() {
                     //L is the name of the map to be used in our project
