@@ -79,10 +79,10 @@ def my_form_post():
         db.child("Events").push({"progress":progress,"name":name, "location":location, "urgency":urgency, "notes":notes, "team":""})
         return render_template('operationsDashboard.html')
     elif read['TYPE'] == 'CNMOC':
+        print(read)
         name=read['missionName']
-        location=read['location']
-        notes = read['notes']
-        db.child("Missions").push({"name":name, "location": location, "notes":notes, "team":""});
+        FR=read['team']
+        db.child("Missions").push({"name":name, "team": FR});
 
         return render_template("operationsChiefDashboard.html");
     elif read['TYPE'] == 'SIEU':

@@ -117,12 +117,14 @@
 		  <option value="exampleFirstResponder">First Responder Name</option>
 		</select>
 		<script>
-		  var x = firebase.database().ref('/team/').once('value').then(function(snapshot) {
+		  var x = firebase.database().ref('/users/').once('value').then(function(snapshot) {
   
 		  var htmlstr = ''
 		  for(i in snapshot.val()){
-		  htmlstr = htmlstr + "<option value ='" + snapshot.val()[i]["name"] + "'> " + snapshot.val()[i]["name"] + "</option>" 
-		  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editmission" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+		  if(snapshot.val()[i]["department"] == "First Responder") {
+		      htmlstr = htmlstr + "<option value ='" + snapshot.val()[i]["email"] + "'> " + snapshot.val()[i]["email"] + "</option>" 
+		  }
+		  
 		  }
 		  document.getElementById("teamlist").innerHTML = htmlstr  
 		  });	  
@@ -139,7 +141,7 @@
 			<h3>Unassigned Events</h3>
 		</div>
 		<!--@Joe please populate this with unassigned events (class displayItem)-->
-		<div class="unassignedlist">
+		<div class="unassignedlist" id = "unassignedlist">
 			<div class="displayItem" id="examplemission">
 				<input type="checkbox" name="unassignedevent" value="@JOE USE UNIQUE EVENT ID" class="topRightBtn">
 				<p>Example mission
@@ -154,6 +156,19 @@
 			<p>Location: Example location</p>
 		</div>
 		</div>
+		<script>
+		  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+  
+		  var htmlstr = ''
+		  for(i in snapshot.val()){
+		  htmlstr=htmlstr+ '<div class="displayItem" id=' + '"' + i + '"' + '><input type="checkbox" name="unassignedevent" value="' + i + '" class="topRightBtn">';
+		  htmlstr+= "<p>" + snapshot.val()[i]["name"] + "</p>";
+		  htmlstr+= "</div>";
+		  
+		  }
+		  document.getElementById("unassignedlist").innerHTML = htmlstr  
+		  });	  
+		</script>
 	</div>
 	
 	
@@ -170,7 +185,7 @@
   var database = firebase.database();
   console.log(database)
 
-  var x = firebase.database().ref('/missions/').once('value').then(function(snapshot) {
+  var x = firebase.database().ref('/Missions/').once('value').then(function(snapshot) {
   
   var htmlstr = ''
   for(i in snapshot.val()){

@@ -107,7 +107,10 @@ def my_form_post():
                     print("AAAAAAAA")
                     print(users[i]['department'])
                     if users[i]["department"] == 'First Responder':
-                        return render_template('firstResponderDashboard.html')
+                        print("A    A")
+                        print(i)
+                        print("A    A")
+                        return render_template('firstResponderDashboard.html', value=i, value2=users)
                     if users[i]["department"] == 'Operator':
                         return render_template('operationsDashboard.html')
                     if users[i]["department"] == 'Operations Chief':
@@ -117,6 +120,7 @@ def my_form_post():
             print(users)
         except:
             login = "login failed"        
+            
         return render_template('mockupSign-In.html', value=login)
 
     #new account
