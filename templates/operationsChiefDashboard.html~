@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/mapView.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-      crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-	crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this --> <!-- how embarrassing -->
@@ -31,21 +27,11 @@
 //  var userId = firebase.auth().currentUser.uid;
   var x = firebase.database().ref('/missions/').once('value').then(function(snapshot) {
   
-  //return snapshot.val()
-  console.log(snapshot.val())
-  console.log("A")
   var htmlstr = ''
   for(i in snapshot.val()){
-  console.log(i)
-  console.log(snapshot.val()[i]["location"])
-  //location, name, notes, team, urgency
   htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editmission" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
-
   }
   document.getElementById("holder").innerHTML = htmlstr  
-
-
-
   });
 
 </script>
@@ -120,19 +106,28 @@
 	<form method = "post">
 		<label for="missionName">Mission Name:<br></label>
 		<!-- Contains mission name -->
+		
 		<input type="text" name="missionName" id="missionName"> <br>
 
-		<input type="text" value="CNEO" name="TYPE" style="display:none;">
+		<input type="text" value="CNMOC" name="TYPE" style="display:none;">
 		
-		<label for="firstResponders">First Responders:<br></label>
-		<select name="firstResponders">
+		<label for="firstResponders">Team:<br></label>
+
+		<select name="team" id = "teamlist">
 		  <option value="exampleFirstResponder">First Responder Name</option>
 		</select>
-<br>
-		<label for="events">Events:<br></label>
-		<select name="events">
-		  <option value="exampleEvent">Event Name (maybe ID?)</option>
-		</select>
+		<script>
+		  var x = firebase.database().ref('/team/').once('value').then(function(snapshot) {
+  
+		  var htmlstr = ''
+		  for(i in snapshot.val()){
+		  htmlstr = htmlstr + "<option value ='" + snapshot.val()[i]["name"] + "'> " + snapshot.val()[i]["name"] + "</option>" 
+		  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editmission" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+		  }
+		  document.getElementById("teamlist").innerHTML = htmlstr  
+		  });	  
+		</script>
+
 		
 		<input type="submit" id="submitBtn">
 	</form>
@@ -146,12 +141,15 @@
 		<!--@Joe please populate this with unassigned events (class displayItem)-->
 		<div class="unassignedlist">
 			<div class="displayItem" id="examplemission">
+				<input type="checkbox" name="unassignedevent" value="@JOE USE UNIQUE EVENT ID" class="topRightBtn">
 				<p>Example mission
+					<!--
 					<form align="right" name="editLabel" method="post">
 						<label class="topRightBtn">
 							<button type="button" id="editmission" onclick="displayEdit()">Edit</button>
 						</label>
 					</form>
+					-->
 				</p>
 			<p>Location: Example location</p>
 		</div>

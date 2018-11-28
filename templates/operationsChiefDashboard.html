@@ -117,12 +117,12 @@
 		  <option value="exampleFirstResponder">First Responder Name</option>
 		</select>
 		<script>
-		  var x = firebase.database().ref('/team/').once('value').then(function(snapshot) {
+		  var x = firebase.database().ref('/users/').once('value').then(function(snapshot) {
   
 		  var htmlstr = ''
 		  for(i in snapshot.val()){
-		  htmlstr = htmlstr + "<option value ='" + snapshot.val()[i]["name"] + "'> " + snapshot.val()[i]["name"] + "</option>" 
-		  htmlstr = htmlstr + '<div class="displayItem"> <p>' + snapshot.val()[i]["name"] + '<form align="right" name="editLabel" method="post"><label class="topRightBtn"><button type="button" id="editmission" onclick="displayEdit()">Edit</button></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'  
+		  htmlstr = htmlstr + "<option value ='" + snapshot.val()[i]["email"] + "'> " + snapshot.val()[i]["name"] + "</option>" 
+		  
 		  }
 		  document.getElementById("teamlist").innerHTML = htmlstr  
 		  });	  
