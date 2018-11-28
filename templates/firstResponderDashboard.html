@@ -193,9 +193,9 @@ Text"> <br>
 				//@Joe - My img sourceing is messed up. But I think that's all
 				//we need to fix to get this working
 				//Please change the iconUrl field to the proper src of the images.
-				var greenPin = new PinIcon({iconUrl: 'greenpin.png'}),
-				redPin = new PinIcon({iconUrl: 'redpin.png'}),
-				yellowPin = new PinIcon({iconUrl: 'yellowpin.png'});
+				var greenPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'greenpin.png') }}'}),
+				redPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'redpin.png') }}'}),
+				yellowPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'yellowpin.png') }}'});
 			
 				var database = firebase.database();
 				console.log(database)
@@ -204,7 +204,16 @@ Text"> <br>
 				for(i in snapshot.val()){
 				$.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
 				for(j in data){
-				  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: redPin}).addTo(mymap)
+				  if(data[j]["urgency"] == "high"){
+				    var pin = redPin;
+				  }
+				  else if(data[j]["urgency"] == "medium"){
+				    var pin = yellowPin;
+				  }
+				  else{
+				    var pin = greenPin;
+				  }
+				  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
 				  break;
 				  }
 				});
