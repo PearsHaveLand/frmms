@@ -83,7 +83,8 @@
 		  <option value="low">Low</option>
 		</select>
 		<br>
-<select name="progress" class="modalText" id = "progress">
+		<label for="progress" class="modalText">Mission Progress<br></label>
+		<select name="progress" class="modalText" id = "progress">
                   <option value="unstarted">Unstarted</option>
                   <option value="inprogress">In Progress</option>
                   <option value="completed">Completed</option>
@@ -208,6 +209,7 @@
 <br>
 
 <!-- Contains event urgency -->
+				<label for="progress" class="modalText">Mission Progress<br></label>
                 <select name="progress" class="modalText" id = "progress">
                   <option value="unstarted">Unstarted</option>
                   <option value="inprogress">In Progress</option>
@@ -262,18 +264,19 @@ var mymap;
   for(i in snapshot.val()){
    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
 	  for(j in data){
-	  if(data[j]["urgency"] == "high"){
-		var pin = redPin;
-	  }
-	  else if(data[j]["urgency"] == "medium"){
-		var pin = yellowPin;
-	  }
-	  else{
-		var pin = greenPin;
-	  }
-	  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
-	  break;
-	  }
+	    var icon = new PinIcon;
+	    if(data[j]["urgency"] == "high"){
+		  pin = redPin;
+	    }
+	    else if(data[j]["urgency"] == "medium"){
+		  pin = yellowPin;
+	    }
+	    else{
+		  pin = greenPin;
+	    }
+	    marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
+	    break;
+	    }
     });
  }
   });	  
@@ -304,7 +307,7 @@ var mymap;
                         document.getElementById('EMEM').value = i;
 var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
      document.getElementById("eventName").value = snapshot.val()[i]['name'];
-     document.getElementById("location").value = snapshot.val()[i]['location'];
+     document.getElementById("editlocation").value = snapshot.val()[i]['location'];
      document.getElementById("urgency").value = snapshot.val()[i]['urgency'];
      document.getElementById("notes").value = snapshot.val()[i]['notes'];
      document.getElementById("progress").value = snapshot.val()[i]['progress'];
