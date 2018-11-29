@@ -226,24 +226,46 @@
 	</div>
   <script>
   var mymap;
-	  function addPins() {
 
-  var database = firebase.database();
-  console.log(database)
+  function addPins() {
+	var PinIcon = L.Icon.extend({
+	options: {
+		iconSize:     [38, 61],
+		shadowSize:   [50, 64],
+		iconAnchor:   [22, 94],
+		shadowAnchor: [4, 62],
+		popupAnchor:  [-3, -76]
+		}
+	});
+	//@Joe - My img sourceing is messed up. But I think that's all
+	//we need to fix to get this working
+	//Please change the iconUrl field to the proper src of the images.
+	var greenPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'greenpin.png') }}'}),
+	redPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'redpin.png') }}'}),
+	yellowPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'yellowpin.png') }}'});
 
-  var x = firebase.database().ref('/Missions/').once('value').then(function(snapshot) {
-  
-  var htmlstr = ''
-  for(i in snapshot.val()){
-
-  $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
-	  for(j in data){
-	  marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
+	var database = firebase.database();
+	console.log(database)
+	var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+	var htmlstr = ''
+	for(i in snapshot.val()){
+	$.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+	for(j in data){
+	  if(data[j]["urgency"] == "high"){
+		var pin = redPin;
 	  }
-    });
- }
-  });
-	  
+	  else if(data[j]["urgency"] == "medium"){
+		var pin = yellowPin;
+	  }
+	  else{
+		var pin = greenPin;
+	  }
+	  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
+	  break;
+	  }
+	});
+	}
+	});
 }
 	  
 		function initializeMap() {
@@ -251,7 +273,8 @@
 			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(mymap);	
-		addPins()
+			addPins();
+			console.log("map initialized");
 		}
 		
 		//Necessary initialization for Google address autocompletion
