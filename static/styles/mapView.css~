@@ -1,0 +1,158 @@
+h3{
+	font-family:"Arial";
+}
+
+.header {
+    position:relative;
+	height:50px;
+    background:#FFCC00;
+    border:2px solid #FFBB00;
+    margin:0px;
+	text-align:center;
+}
+
+#pageHeader{
+    width:100%;
+}
+
+.sidebar{
+	width:25%;
+	height:100%;
+	position:absolute;
+	background:#EEEEEE;
+	/*border-right:1px solid black;*/
+	border-right:1px solid #cccccc;
+	padding:0px;
+}
+
+.rightsidebar{
+	width:25%;
+	height:100%;
+	display:inline-block;
+	position:absolute;
+	background:#EEEEEE;
+	padding:0px;
+	margin-left:74%;
+}
+
+.itemViewer{
+	position:sticky;
+	height:50%;
+	margin:0px;
+	overflow:scroll;
+}
+
+.unassignedlist{
+	position:sticky;
+	height:80%;
+	margin:0px;
+	overflow:scroll;
+}
+
+.frItemViewer{
+	position:sticky;
+	height:66%;
+	margin:0px;
+	overflow:scroll;
+}
+
+.displayItem{
+	margin:0px;
+	border-bottom:1px solid #cccccc;
+	font-family:Arial;
+	padding-left:10px;
+}
+
+.dropdownLabel{
+	margin:0;
+	padding:0;
+}
+
+
+.logout{
+	position:absolute;
+	right:10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.topRightBtn{
+	position:absolute;
+	right:10px;
+	/*
+	top: 50%;
+	transform: translateY(-50%);	
+	*/
+}
+
+/* The Modal (background) */
+.editModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modalContent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 40%;
+	padding-bottom: 10px;
+}
+
+.modalText {
+	margin-left: 10px;
+}
+
+/* The Close Button */
+.close {
+    color: #ffffff;
+	/*
+    float: right;
+    */
+	position:absolute;
+	right:10px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label{
+	font-family:"Arial";
+}
+
+#mapView{
+	margin-left: 26%;
+}
+
+#ocmapview{
+	margin-left: 26%;
+	margin-right: 26%;
+}
+
+#mapid {
+	height: 550px;
+	z-index:0;
+}
+
+.eventcheck {
+	display:inline;
+}

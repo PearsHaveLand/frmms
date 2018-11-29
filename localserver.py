@@ -85,6 +85,8 @@ def my_form_post():
 #        db.child("Missions").push({"name":name, "team": FR});
 
         return render_template("operationsChiefDashboard.html");
+    elif read['TYPE'] == 'AAS':
+        return render_template("firstResponderDashboard.html", value=read['VALLL']);
     elif read['TYPE'] == 'SIEU':
         print("A")
         username = read['email']

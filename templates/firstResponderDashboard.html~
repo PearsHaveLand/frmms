@@ -154,23 +154,35 @@ Text"> <br>
 			  });
 			</script>
 			<script>
-			  function complete(a) {
+
+
+			</script>
+
+			<script>
+
+
+			  function completeeee(e) {
 			  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
 			  snepshot = snapshot.val();
-			  snepshot[a]["progress"] = "completed";
-			  
+			  console.log(e.srcElement.value);
+			  snepshot[e.srcElement.value]["progress"] = "completed";
+			  console.log(snepshot);
+			  firebase.database().ref('/Events/').update(snepshot);
 			  });
 			  
 }
 
-			  function cancel(a) {
+			  function canceleee(e) {
+			  console.log("A");
 		  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
 			  snepshot = snapshot.val();
-			  snepshot[a]["progress"] = "completed";
-}
-			</script>
+			  console.log(e.srcElement.value)
+			  snepshot[e.srcElement.value]["progress"] = "completed";
+			  firebase.database().ref('/Events/').update(snepshot);
+});
 
-			<script>
+}
+
 			  var pup = 0;
 			  var y = firebase.database().ref('/users/').once('value').then(function(snapshot) {
 			  
@@ -192,14 +204,18 @@ Text"> <br>
 			  if(snapshot.val()[i]["team"] == pup && snapshot.val()[i]["progress"] != "completed") {
 			      
 			  console.log("OH YEAH!!!!");
-			  
-			  htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" onclick="complete(`' + i + '`)" id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" onclick="cancel(`' + i + '`)" id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
+
+			  htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" value = "' + i + '" onclick="completeeee(event)" id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" value = "' + i + '" onclick="canceleee(event)" id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
+			  //htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" onclick=' + "'" + 'complete("' + i + '")' +"'" + ' id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" onclick=`cancel("' + i + '")` id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
 			  
 
 
 }
 			  }
-			  document.getElementById("holder").innerHTML = htmlstr
+
+
+  			  document.getElementById("holder").innerHTML = htmlstr;
+
 			  });
 			</script>
 
