@@ -26,21 +26,21 @@
   firebase.initializeApp(config);
 
   var database = firebase.database();
-  console.log(database)
+  //console.log(database)
 
 //  var userId = firebase.auth().currentUser.uid;
   var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
   
   //return snapshot.val()
-  console.log(snapshot.val())
+  //console.log(snapshot.val())
   console.log("A")
   var htmlstr = ''
   for(i in snapshot.val()){
-  console.log(i);
-  console.log(snapshot.val()[i]["location"]);
+  //console.log(i);
+  //console.log(snapshot.val()[i]["location"]);
   //location, name, notes, team, urgency
-  console.log(i);
-  console.log("SPICY PEPPER");
+  //console.log(i);
+  //console.log("SPICY PEPPER");
   htmlstr = htmlstr + "<div class='displayItem'> <p>" + snapshot.val()[i]["name"] + "<form align='right' name='editLabel' method='post'><label class='topRightBtn'><button type='button' id='editEvent' onclick='displayEdit(" + '"' + i + '"' +")'>Edit</button></label></form></p><p>Location: '" + snapshot.val()[i]["location"]  + snapshot.val()[i]["progress"] + "</p></div>";  
   
   }
@@ -166,10 +166,10 @@
 	    <input type = "submit">
 	  </form>
 ======-->
-	<div class="itemViewer" id="eventViewer">
 		<div class="header">
 			<h3>Event Viewer</h3>
 		</div>
+	<div class="itemViewer" id="eventViewer">
 		<div class="displayItem" id="exampleEvent">
 			<p>Example Event
 				<form align="right" name="editLabel" method="post">
@@ -242,42 +242,73 @@
   </div>
 	
 	<script>
-var mymap;
-	  function addPins() {
-	  var PinIcon = L.Icon.extend({
-				options: {
-					iconSize:     [38, 61],
-					shadowSize:   [50, 64],
-					iconAnchor:   [22, 94],
-					shadowAnchor: [4, 62],
-					popupAnchor:  [-3, -76]
-					}
-				});
+  var mymap;
+  function addPins() {
+  var coords = {};
+  var PinIcon = L.Icon.extend({
+			options: {
+				iconSize:     [38, 61],
+				shadowSize:   [50, 64],
+				iconAnchor:   [22, 94],
+				shadowAnchor: [4, 62],
+				popupAnchor:  [-3, -76]
+				}
+			});
   var database = firebase.database();
-  console.log(database)
+  //console.log(database)
   var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+  
   var htmlstr = ''
-  var greenPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'greenpin.png') }}'}),
-	redPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'redpin.png') }}'}),
-	yellowPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'yellowpin.png') }}'});
-			
+  var greenPin = new PinIcon({iconUrl: "{{ url_for('static', filename = 'greenpin.png') }}"}),
+	redPin = new PinIcon({iconUrl: "{{ url_for('static', filename = 'redpin.png') }}"}),
+	yellowPin = new PinIcon({iconUrl: "{{ url_for('static', filename = 'yellowpin.png') }}"});
+  //console.log("--------");
+		
+  //console.log(snapshot.val());
+  //console.log("--------");
   for(i in snapshot.val()){
-   $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
-	  for(j in data){
-	    var icon = new PinIcon;
-	    if(data[j]["urgency"] == "high"){
-		  pin = redPin;
-	    }
-	    else if(data[j]["urgency"] == "medium"){
-		  pin = yellowPin;
-	    }
-	    else{
-		  pin = greenPin;
-	    }
-	    marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
-	    break;
-	    }
-    });
+   // var dlat = null;
+	//var dlon = null;
+	coords[snapshot.val()[i]] = "";
+    //console.log("--------");
+	console.log(snapshot.val()[i]);
+    
+	let pin = new PinIcon;
+		
+	if(snapshot.val()[i]["urgency"] == "high"){
+      pin = redPin;
+	  //console.log("red");
+	}
+    else if(snapshot.val()[i]["urgency"] == "medium"){
+      pin = yellowPin;
+	  //console.log("ylw");
+    }
+    else{
+      pin = greenPin;
+	  //console.log("green");
+    }
+	console.log("about to send get");
+	$.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+	  //console.log("dlat = " + dlat);
+	  if (typeof data !== 'undefined' && data.length > 0) {
+		/*
+		console.log("----------");
+		console.log("INSIDE GET");
+	    console.log(data);
+		console.log(snapshot.val()[i]);
+		for(j in data){
+	      //dlat = data[j]["lat"];
+		  //dlon = data[j]["lon"];
+		  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap);
+          break;		  
+        }
+		*/
+		L.marker([data[0]["lat"], data[0]["lon"]]).addTo(mymap);
+	  }
+	});
+	console.log("sent get");
+	//console.log("dlat = " + dlat);
+	//L.marker([dlat, dlon], {icon: pin}).addTo(mymap);
  }
   });	  
 }  
