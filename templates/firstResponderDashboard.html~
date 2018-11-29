@@ -10,7 +10,7 @@
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script><!-- You forgot closing this --> <!-- how embarrassing -->
-
+<!--<script type="text/javascript" src="{{ url_for('static', filename = 'pins.js') }}"></script>-->
 
 
 <script>
@@ -26,27 +26,27 @@
   firebase.initializeApp(config);
 
   var database = firebase.database();
-  console.log(database)
+  //console.log(database)
 
 //  var userId = firebase.auth().currentUser.uid;
   var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
 
   //return snapshot.val()
-  console.log(snapshot.val())
-  console.log("A")
+  //console.log(snapshot.val())
+  //console.log("A")
   var htmlstr = ''
   for(i in snapshot.val()){
-  console.log(i);
-  console.log(snapshot.val()[i]["location"]);
+  //console.log(i);
+  //console.log(snapshot.val()[i]["location"]);
   //location, name, notes, team, urgency
-  console.log(i);
-  console.log("SPICY PEPPER");
+  //console.log(i);
+  //console.log("SPICY PEPPER");
   visibilityequalfalsestring = 'style="display:none"';
   
   htmlstr = htmlstr + "<div class='displayItem'> <p>" + snapshot.val()[i]["name"] + "<form align='right' name='editLabel' method='post'><label class='topRightBtn'><button type='button' id='editEvent' onclick='displayEdit(" + '"' + i + '"' +")'>Edit</button></label></form></p><p>Location: '" + snapshot.val()[i]["location"]  + "</p></div>";
 
   }
-  document.getElementById("holder").innerHTML = htmlstr
+  //document.getElementById("holder").innerHTML = htmlstr
   });
 
 </script>
@@ -104,7 +104,6 @@ Text"> <br>
 
 	<div class="header" id="pageHeader">
 
-
 		<h3>First Responder Dashboard</h3>
 		<!-- The Log out button -->
 		<form align="right" name="logoutLabel" method="post">
@@ -126,15 +125,20 @@ Text"> <br>
 				<!-- @Joe 
 					Please populate this element with the FR's current
 					mission name-->
-				<h3>Current Mission: None</h3>
+				<h3>First Responder:<div id="user">{{ value }}</div></h3>
 			</div>
 			<!-- @Joe
 				Each displayItem should follow this format -->
 			<div class="displayItem" id="exampleEvent">
-				<p>Example Event
-					<form align="right" name="editLabel" method="post">
+				<form align="right" name="complete" method="post">
 						<label class="topRightBtn">
-							<input name="editEvent" type="submit" id="editEvent" value="Edit">
+							<input name="completebtn" type="submit" id="completebtn" value="Complete">
+						</label>
+				</form>
+				<p>Example Event
+					<form align="right" name="cancel" method="post">
+						<label class="topRightBtn">
+							<input name="cancelbtn" type="submit" id="cancelbtn" value="Cancel">
 						</label>
 					</form>
 				</p>
@@ -142,14 +146,82 @@ Text"> <br>
 			</div>
 			<div id="holder">
 			</div>
+
+			<script>
+			  var x = firebase.database().ref('/users/').once('value').then(function(snapshot) {
+			  
+			  document.getElementById("user").innerHTML = snapshot.val()["{{ value }}"]["email"]
+			  });
+			</script>
+			<script>
+			  function complete(a) {
+			  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+			  snepshot = snapshot.val();
+			  snepshot[a]["progress"] = "completed";
+			  
+			  });
+			  
+}
+
+			  function cancel(a) {
+		  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+			  snepshot = snapshot.val();
+			  snepshot[a]["progress"] = "completed";
+}
+			</script>
+
+			<script>
+			  var pup = 0;
+			  var y = firebase.database().ref('/users/').once('value').then(function(snapshot) {
+			  
+			  pup = snapshot.val()["{{ value }}"]["email"]
+			  });
+
+
+			  console.log("Yo awg");
+			  var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+			  console.log("be yawg");
+
+			  var htmlstr = ''
+
+			  for(i in snapshot.val()){
+
+			  console.log(i);
+			  console.log(snapshot.val()[i]["team"])
+			  console.log(document.getElementById("user").innerHTML)
+			  if(snapshot.val()[i]["team"] == pup && snapshot.val()[i]["progress"] != "completed") {
+			      
+			  console.log("OH YEAH!!!!");
+			  
+			  htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" onclick="complete(`' + i + '`)" id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" onclick="cancel(`' + i + '`)" id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
+			  
+
+
+}
+			  }
+			  document.getElementById("holder").innerHTML = htmlstr
+			  });
+			</script>
+
 		</div>
-		<!-- Form for creation of missions -->
+		<!-- Form for creation of teams -->
+		<!--
 		<div class="header">
 			<h3>Create New Team</h3>
 		</div>
 		<form method = "post">
 			<label for="teamname">Team Name:<br></label>
-			<!-- Contains mission name -->
+			<input type="text" name="teamname" id="teamname"> <br>
+
+			<input type="text" value="CNEO" name="TYPE" style="display:none;">
+			<input type="submit" id="submitBtn">
+		</form>
+		-->
+		<div class="header">
+			<h3>Create New Team</h3>
+		</div>
+		<form method = "post">
+			<label for="teamname">Team Name:<br></label>
 			<input type="text" name="teamname" id="teamname"> <br>
 
 			<input type="text" value="CNEO" name="TYPE" style="display:none;">
@@ -164,20 +236,46 @@ Text"> <br>
 	</div>
 	          <script>
 		    var mymap;
+			
 		    function addPins() {
-		    var database = firebase.database();
-		    console.log(database)
-		    var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
-		    var htmlstr = ''
-		    for(i in snapshot.val()){
-		    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
-		    for(j in data){
-		      marker = L.marker([data[j]["lat"], data[j]["lon"]]).addTo(mymap)
-		      break;
-		      }
-		    });
-		    }
-		    });
+				var PinIcon = L.Icon.extend({
+				options: {
+					iconSize:     [38, 61],
+					shadowSize:   [50, 64],
+					iconAnchor:   [22, 94],
+					shadowAnchor: [4, 62],
+					popupAnchor:  [-3, -76]
+					}
+				});
+				//@Joe - My img sourceing is messed up. But I think that's all
+				//we need to fix to get this working
+				//Please change the iconUrl field to the proper src of the images.
+				var greenPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'greenpin.png') }}'}),
+				redPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'redpin.png') }}'}),
+				yellowPin = new PinIcon({iconUrl: '{{ url_for('static', filename = 'yellowpin.png') }}'});
+			
+				var database = firebase.database();
+				console.log(database)
+				var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+				var htmlstr = ''
+				for(i in snapshot.val()){
+				$.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + snapshot.val()[i]["location"], function(data){
+				for(j in data){
+				  if(data[j]["urgency"] == "high"){
+				    var pin = redPin;
+				  }
+				  else if(data[j]["urgency"] == "medium"){
+				    var pin = yellowPin;
+				  }
+				  else{
+				    var pin = greenPin;
+				  }
+				  marker = L.marker([data[j]["lat"], data[j]["lon"]], {icon: pin}).addTo(mymap)
+				  break;
+				  }
+				});
+				}
+				});
 		    }
                     function initializeMap() {
                     //L is the name of the map to be used in our project
