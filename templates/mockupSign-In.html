@@ -4,9 +4,9 @@
   
   <body>
     <h2 id="WelcomeBanner">Welcome to the First Responder Mission Management System</h2>
-    <div> {{ value }} </div>
+    <!--<div> {{ value }} </div>-->
     <div id="ExteriorBox">
-      <div id="SignInBox">
+      <div id="SignInBox" class="infobox">
 	<form method = "post">
 	  <input type = "text" value = "SIEU" name = "TYPE" style = "display:none;">
 	  <h3>Sign in:</h3>
@@ -17,7 +17,7 @@
 	  <input type = "submit" value="Sign In">
 	</form>
       </div>
-      <div id="SignUpBox">
+      <div id="SignUpBox" class="infobox">
 	<form method = "post">
 	  <input type = "text" value = "CU" name = "TYPE" style="display:none;">
 	  <h3>Register:</h3>
@@ -39,6 +39,8 @@
 	  
 	</form>
       </div>
+	<p class="errormsg">{{ value }}</p>
     </div>
+	<!--<div> <p>{{ value }}</p> </div>-->
   </body>
 </html>

@@ -119,7 +119,7 @@ def my_form_post():
             print("cc")
             print(users)
         except:
-            login = "login failed"        
+            login = "login failed: invalid email or password"        
             
         return render_template('mockupSign-In.html', value=login)
 

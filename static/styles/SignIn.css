@@ -13,6 +13,20 @@
 	display:inline-block;
 	margin-left:35%;
 }
+.infobox{
+	box-sizing:border-box;
+    padding:10px;
+	width:auto;
+	border:3px solid black;
+    border-radius:10px;
+	margin:auto;
+	display:inline-block;
+}
+
+.errormsg{
+	color:red;
+}
+/*
 #SignUpBox{
 	box-sizing:border-box;
     padding:10px;
@@ -31,7 +45,10 @@
 	display:inline-block;
 	vertical-align:top;
 }
-
+*/
+#SignInBox{
+	vertical-align:top;
+}
 p{
 	font-family: "Arial";
 }
