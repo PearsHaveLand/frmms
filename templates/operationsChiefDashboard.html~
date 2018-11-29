@@ -129,9 +129,32 @@
 		  document.getElementById("teamlist").innerHTML = htmlstr  
 		  });	  
 		</script>
+		<script>
+		  function doit() {
+		  console.log("A")
+		   var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+		   var htmlstr = ''
+ 		   for(i in snapshot.val()){
+		    console.log("B");
 
-		
-		<input type="submit" id="submitBtn">
+		    if(snapshot.val()[i]["team"] == "") {
+		  console.log("C");
+		  console.log(document.getElementById(i).checked);
+		  console.log(i);
+		  console.log(document.getElementById(i));
+		      if(document.getElementById(i).checked == true) {
+		  console.log("D");
+		        snapshot.val()[i]["team"] = document.getElementById("teamlist").value;
+		  console.log("E");
+		        firebase.database().ref().update(snapshot.val());
+		      }
+		    }
+		   }
+		  document.getElementById("unassignedlist").innerHTML = htmlstr  
+		  });	  
+		  }
+		</script>
+		<input type="button" id="submitBtn" value = "submit"  onclick="doit()">
 	</form>
 	</div>
 	</div>
@@ -161,10 +184,11 @@
   
 		  var htmlstr = ''
 		  for(i in snapshot.val()){
-		  htmlstr=htmlstr+ '<div class="displayItem" id=' + '"' + i + '"' + '><input type="checkbox" name="unassignedevent" value="' + i + '" class="topRightBtn">';
+		  if(snapshot.val()[i]["team"] == "") {
+		  htmlstr=htmlstr+ '<div class="displayItem" id=' + '"' + i + '"' + '><input type="checkbox" name="unassignedevent"  class="topRightBtn">';
 		  htmlstr+= "<p>" + snapshot.val()[i]["name"] + "</p>";
 		  htmlstr+= "</div>";
-		  
+		  }
 		  }
 		  document.getElementById("unassignedlist").innerHTML = htmlstr  
 		  });	  

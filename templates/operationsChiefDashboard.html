@@ -85,7 +85,7 @@
 		<div class="header">
 			<h3>Mission Viewer</h3>
 		</div>
-		<div class="displayItem" id="examplemission">
+<!--		<div class="displayItem" id="examplemission">
 			<p>Example mission
 				<form align="right" name="editLabel" method="post">
 					<label class="topRightBtn">
@@ -94,7 +94,20 @@
 				</form>
 			</p>
 			<p>Location: Example location</p>
-		</div>
+		</div> -->
+				<script>
+		  var x = firebase.database().ref('/users/').once('value').then(function(snapshot) {
+  
+		  var htmlstr = ''
+		  for(i in snapshot.val()){
+		  if(snapshot.val()[i]["department"] == "First Responder") {
+		    htmlstr =htmlstr+ "<div class = 'displayItem'><p>" + snapshot.val()[i]["email"] + " " +"<input type='button' value='View' onclick=" + '"displ()">'  + "</p></div>";
+		  }
+		  
+		  }
+		  document.getElementById("holder").innerHTML = htmlstr  
+		  });	  
+		</script>
 		<div id = "holder"></div>
 	</div>
 	<div class="missionCreator">
@@ -116,6 +129,9 @@
 		<select name="team" id = "teamlist">
 		  <option value="exampleFirstResponder">First Responder Name</option>
 		</select>
+
+
+
 		<script>
 		  var x = firebase.database().ref('/users/').once('value').then(function(snapshot) {
   
@@ -129,9 +145,38 @@
 		  document.getElementById("teamlist").innerHTML = htmlstr  
 		  });	  
 		</script>
+		<script>
+		  function doit() {
+		  console.log("A")
+		   var x = firebase.database().ref('/Events/').once('value').then(function(snapshot) {
+		   var htmlstr = ''
+ 		   for(i in snapshot.val()){
+		    console.log("B");
 
-		
-		<input type="submit" id="submitBtn">
+		    if(snapshot.val()[i]["team"] == "") {
+		  console.log("C");
+		  console.log(i);
+		  console.log(document.getElementById(i));
+		  console.log(document.getElementById(i).checked);
+
+		      if(document.getElementById(i).checked == true) {
+		  console.log("D");
+		  v = snapshot.val();
+		        snapshot.val()[i]["team"] = document.getElementById("teamlist").value;
+		  v[i]["team"]=document.getElementById("teamlist").value;
+		  console.log("E");
+		  console.log(document.getElementById("teamlist").value);
+		  console.log(snapshot.val());
+		  console.log(v);
+		        firebase.database().ref('/Events/').update(v);
+		      }
+		    }
+		   }
+
+		  });	  
+		  }
+		</script>
+		<input type="submit" id="submitBtn" value = "submit"  onclick="doit()">
 	</form>
 	</div>
 	</div>
@@ -162,7 +207,7 @@
 		  var htmlstr = ''
 		  for(i in snapshot.val()){
 		  if(snapshot.val()[i]["team"] == "") {
-		  htmlstr=htmlstr+ '<div class="displayItem" id=' + '"' + i + '"' + '><input type="checkbox" name="unassignedevent" value="' + i + '" class="topRightBtn">';
+		  htmlstr=htmlstr+ '<div class="displayItem"><input type="checkbox" name="unassignedevent" id="' + i + '" class="topRightBtn">';
 		  htmlstr+= "<p>" + snapshot.val()[i]["name"] + "</p>";
 		  htmlstr+= "</div>";
 		  }
