@@ -134,8 +134,10 @@ def my_form_post():
         id = read['id']
         department = read['department']
         try:
+#        if 1 == 1:
             auth.create_user_with_email_and_password(username, password)
             db.child("users").push({"email":username, "password":password, "phonenumber":phoneNum, "id":id, "department":department})
+#        else:
         except:
             return render_template('mockupSign-In.html', value="failed account creation")
         return render_template('mockupSign-In.html', value="success")

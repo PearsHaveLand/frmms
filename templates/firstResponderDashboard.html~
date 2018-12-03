@@ -205,7 +205,7 @@ Text"> <br>
 			      
 			  console.log("OH YEAH!!!!");
 
-			  htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" value = "' + i + '" onclick="completeeee(event)" id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" value = "' + i + '" onclick="canceleee(event)" id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
+			  htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" value = "' + i + '" onclick="completeeee(event)" id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input type = "text" name = "VALLL" value="{{ value }}"><input type = "text" name = "TYPE" value = "AAS" style="display:none;"><input name="cancelbtn" type="submit" value = "' + i + '" onclick="canceleee(event)" id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
 			  //htmlstr = htmlstr + '<div class="displayItem" id="exampleEvent"><form align="right" name="complete" method="post"><label class="topRightBtn"><input name="completebtn" type="button" onclick=' + "'" + 'complete("' + i + '")' +"'" + ' id="completebtn" value="Complete"></label></form><p>' + snapshot.val()[i]["name"]  + '<form align="right" name="cancel" method="post"><label class="topRightBtn"><input name="cancelbtn" type="button" onclick=`cancel("' + i + '")` id="cancelbtn" value="Cancel"></label></form></p><p>Location: ' + snapshot.val()[i]["location"]  + '</p></div>'
 			  
 
@@ -233,6 +233,7 @@ Text"> <br>
 			<input type="submit" id="submitBtn">
 		</form>
 		-->
+		<!--
 		<div class="header">
 			<h3>Create New Team</h3>
 		</div>
@@ -242,7 +243,7 @@ Text"> <br>
 
 			<input type="text" value="CNEO" name="TYPE" style="display:none;">
 			<input type="submit" id="submitBtn">
-		</form>
+		</form> -->
 	</div>
 	
 	<!-- Container for the map view, in case we want to add more into the map view area -->
